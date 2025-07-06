@@ -60,9 +60,9 @@ date +%Y%m%d
    - Start the article body directly with the introduction paragraph
 
 4. **Create and Save Article**
-   - Use `npx zenn new:article` to create a new Zenn article
-   - The command will generate a file with the proper Zenn frontmatter format
-   - Replace the generated content with the weekly digest article using the following format:
+   - Create a new article file directly with the filename format: `weekly_ai_YYYYMMDD.md`
+   - Save the file to the `articles/` directory
+   - Use the following format for the article:
     ```markdown
     ---
     title: "週刊AI駆動開発 - [TODAY_FORMATTED]"
