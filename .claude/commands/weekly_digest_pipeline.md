@@ -39,6 +39,14 @@ date +%Y-%m-%d
      - Save the article to the appropriate location
    - The article generation is handled separately for better error recovery and modularity
 
+4. **Commit Generated Content**
+   - After successful article generation, execute the `commit_weekly_digest.md` command
+   - This command will:
+     - Add all generated files in `resources/[TODAY_DATE]/` and `articles/` directories
+     - Create a commit with meaningful message including the date
+     - Push to main branch using git commands
+   - The commit process is handled separately for better modularity and error recovery
+
 **Execution Notes:**
 - Process commands sequentially to ensure stability
 - Provide clear progress updates between each command
