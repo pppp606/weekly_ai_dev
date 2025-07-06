@@ -41,7 +41,7 @@ If no such repository meets the criteria, **do not invent one** just to fill the
     - Description of its purpose and how it can be used
     - Key features
     - Why it's significant or gaining attention now (write in natural Japanese, not translation-like)
-    - Stars/forks count and recent activity
+    - Focus on practical value and impact rather than numerical metrics
 
 - If no suitable repository is found:
   - Output exactly the following line only: `There are no repositories to feature.`
@@ -59,7 +59,6 @@ If no such repository meets the criteria, **do not invent one** just to fill the
 # Trending AI Development Repositories - [TODAY_DATE]
 
 ## [Repository Name](https://github.com/user/repo)
-**Stars:** X,XXX | **Language:** Python | **Recent Activity:** Active
 
 ### 概要
 [Natural Japanese description of what this tool does and why it matters]

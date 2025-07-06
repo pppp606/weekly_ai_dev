@@ -62,6 +62,17 @@ date +%Y%m%d
 4. **Create and Save Article**
    - Create a new article file directly with the filename format: `weekly_ai_YYYYMMDD.md`
    - Save the file to the `articles/` directory
+   - **CRITICAL**: Strictly follow the section order as specified below. The sections must appear in exactly this order:
+     1. リリース情報
+     2. 注目のAI開発リポジトリ
+     3. AI関連ニュース
+     4. テックブログ
+     5. 海外コミュニティ動向
+     6. 今週のAI開発イベント
+     7. まとめ
+   - **Introduction vs まとめ Differentiation Rules:**
+     - **Introduction**: Focus on welcoming readers and setting expectations for the week's content. Mention the main themes or categories that will be covered (e.g., "今週は新しいAIツールのリリースと、開発者向けのイベント情報をお届けします"). Keep it forward-looking and inviting.
+     - **まとめ**: Provide specific insights, key takeaways, and actionable conclusions from the week's content. Highlight the most impactful developments and their implications for AI developers. Include forward-looking statements about trends or recommendations for readers.
    - Use the following format for the article:
     ```markdown
     ---
@@ -72,7 +83,7 @@ date +%Y%m%d
     published: true
     ---
 
-    [Introduction paragraph about this week's updates based on available data]
+    [Introduction paragraph - Welcome readers and set expectations for this week's content categories]
 
     ## 🚀 リリース情報
     [Content from release_information.md - filtered for significant features and improvements only]
@@ -101,7 +112,7 @@ date +%Y%m%d
     イベントの概要・開発者向けポイント]
 
     ## 📝 まとめ
-    [Summary of the week's highlights based on available data]
+    [Specific insights, key takeaways, and actionable conclusions from this week's content. Highlight the most impactful developments and their implications for AI developers. Include forward-looking statements about trends or recommendations.]
 
     ## 週刊AI駆動開発について
     この記事は以下リポジトリの内容で生成されています。
