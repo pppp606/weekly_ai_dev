@@ -63,46 +63,52 @@ date +%Y%m%d
    - Use `npx zenn new:article` to create a new Zenn article
    - The command will generate a file with the proper Zenn frontmatter format
    - Replace the generated content with the weekly digest article using the following format:
-     ```markdown
-     ---
-     title: "今週のAI開発ツール アップデート情報 - [TODAY_FORMATTED]"
-     emoji: "🤖"
-     type: "tech"
-     topics: ["ai駆動開発", "vibecoding", "ai", "claudecode", "Gemini CLI", "cursor"]
-     published: true
-     ---
-     
-     [Introduction paragraph about this week's updates based on available data]
+    ```markdown
+    ---
+    title: "週刊AI駆動開発 - [TODAY_FORMATTED]"
+    emoji: "🤖"
+    type: "tech"
+    topics: ["ai駆動開発", "vibecoding", "ai", "claudecode", "Gemini CLI", "cursor"]
+    published: true
+    ---
 
-     ## 🚀 リリース情報
-     [Content from release_information.md - filtered for significant features and improvements only]
+    [Introduction paragraph about this week's updates based on available data]
 
-     ## 📈 注目のAI開発リポジトリ
-     [Content from trending_repositories.md - use plain URL format for link cards:
-     https://github.com/user/repo
-     リポジトリの説明や注目ポイント]
+    ## 🚀 リリース情報
+    [Content from release_information.md - filtered for significant features and improvements only]
 
-     ## 📰 AI関連ニュース
-     [Content from ai_news_summary.md if available - use plain URL format:
-     https://example.com/news-article
-     ニュースの概要・開発者への影響]
+    ## 📈 注目のAI開発リポジトリ
+    [Content from trending_repositories.md - use plain URL format for link cards:
+    https://github.com/user/repo
+    リポジトリの説明や注目ポイント]
 
-     ## 📚 テックブログ
-     [Content from tech_blog_articles.md if available - use plain URL format:
-     https://example.com/article
-     記事の概要・ポイント]
+    ## 📰 AI関連ニュース
+    [Content from ai_news_summary.md if available - use plain URL format:
+    https://example.com/news-article
+    ニュースの概要・開発者への影響]
 
-     ## 🌐 海外コミュニティ動向
-     [Content from overseas_community_trends.md if available]
+    ## 📚 テックブログ
+    [Content from tech_blog_articles.md if available - use plain URL format:
+    https://example.com/article
+    記事の概要・ポイント]
 
-     ## 🎯 今週のAI開発イベント
-     [Content from events.md if available - use plain URL format:
-     https://connpass.com/event/12345/
-     イベントの概要・開発者向けポイント]
+    ## 🌐 海外コミュニティ動向
+    [Content from overseas_community_trends.md if available]
 
-     ## 📝 まとめ
-     [Summary of the week's highlights based on available data]
-     ```
+    ## 🎯 今週のAI開発イベント
+    [Content from events.md if available - use plain URL format:
+    https://connpass.com/event/12345/
+    イベントの概要・開発者向けポイント]
+
+    ## 📝 まとめ
+    [Summary of the week's highlights based on available data]
+
+    ## 週刊AI駆動開発について
+    この記事は以下リポジトリの内容で生成されています。
+    追加したい情報、修正、改善案などあればIssueを立てるか変更のPRをお願いします！
+
+    https://github.com/pppp606/weekly_ai_dev
+    ```
 
 5. **Error Handling**
    - If no data files are found, generate a minimal article explaining the situation
