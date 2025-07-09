@@ -6,13 +6,13 @@ First, confirm today's date by running the bash command:
 date +%Y-%m-%d
 ```
 
-**Pipeline Steps:**
+# Pipeline Steps
 
-1. **Execute Individual Digest Commands Sequentially**
+1. Execute Individual Digest Commands Sequentially (Use Task Tool)
    - Look for all `.md` files in `.claude/commands/` directory that match the pattern `*_digest.md` (excluding this pipeline file)
    - Execute digest commands **one by one** for better stability and error handling
    - Each command will generate output in `resources/[TODAY_DATE]/` directory
-   - **Sequential Execution Benefits**: 
+   - **Sequential Execution Benefits**:
      - Avoids API rate limiting issues
      - Easier error tracking and recovery
      - More predictable resource usage
@@ -24,13 +24,13 @@ date +%Y-%m-%d
      5. hacker_news_reddit_digest.md
      6. ai_tec_blog_digest.md
 
-2. **Error Handling**
+2. Error Handling
    - If a digest command fails, log the error with details
    - Continue with the next command
    - Keep track of which commands succeeded/failed
    - Include status report in the final output
 
-3. **Generate Final Article Using Dedicated Command**
+3. Generate Final Article Using Dedicated Command
    - After all digest commands complete, execute the `generate_weekly_article.md` command
    - This command will:
      - Collect all generated reports from `resources/[TODAY_DATE]/` directory
@@ -39,7 +39,7 @@ date +%Y-%m-%d
      - Save the article to the appropriate location
    - The article generation is handled separately for better error recovery and modularity
 
-4. **Commit Generated Content**
+4. Commit Generated Content
    - After successful article generation, execute the `commit_weekly_digest.md` command
    - This command will:
      - Add all generated files in `resources/[TODAY_DATE]/` and `articles/` directories
