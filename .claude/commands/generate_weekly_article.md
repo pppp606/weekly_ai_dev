@@ -113,12 +113,6 @@ date +%Y%m%d
 
     ## 📝 まとめ
     [Specific insights, key takeaways, and actionable conclusions from this week's content. Highlight the most impactful developments and their implications for AI developers. Include forward-looking statements about trends or recommendations.]
-
-    ## 週刊AI駆動開発について
-    この記事は以下リポジトリの内容で生成されています。
-    追加したい情報、修正、改善案などあればIssueを立てるか変更のPRをお願いします！
-
-    https://github.com/pppp606/weekly_ai_dev
     ```
 
 5. **Error Handling**
