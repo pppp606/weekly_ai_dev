@@ -27,7 +27,7 @@ date +%Y%m%d
      - `trending_repositories.md`
      - `ai_news_summary.md`
      - `events.md`
-     - `overseas_community_trends.md`
+     - `community_discussions.md`
      - `tech_blog_articles.md`
    - Check which files exist and read their contents
 
@@ -47,20 +47,17 @@ date +%Y%m%d
      - **For Overseas Community Trends**: Focus on technical insights, emerging trends, and actionable developer tips from global communities
      - **For Tech Blog Articles**: Highlight practical tutorials, architectural insights, and innovative use cases
    - **Link Requirements:**
-     - **CRITICAL**: Use plain URL format (not markdown link syntax) for link card display in ALL sections
-     - Format: URL followed by brief description on next line
-     - Example format:
-       ```
-       https://github.com/example/repo
-       簡潔な説明文や注目ポイント
-       ```
-     - **MANDATORY**: Include ALL relevant URLs in the following sections:
-       - AI関連ニュース: Include source blog/article URLs for every news item
-       - テックブログ: Include direct URLs for every tech blog article mentioned
-       - 海外コミュニティ動向: Include Hacker News and Reddit discussion URLs
-       - 今週のAI開発イベント: Include event URLs for every event
-     - Include all relevant repository URLs, release URLs, and source article URLs
-     - Maintain source attribution with proper links
+     - **CRITICAL**: Always use the EXACT URLs from the source files (release_information.md, ai_news_summary.md, community_discussions.md, tech_blog_articles.md, events.md, trending_repositories.md)
+     - **NEVER generate, modify, or create placeholder URLs** - only use URLs that actually exist in the resource files
+     - Format: Use the exact format and URLs as they appear in the source files
+     - **MANDATORY**: Include ALL relevant URLs exactly as they are written in the source files:
+       - AI関連ニュース: Copy URLs exactly from ai_news_summary.md
+       - テックブログ: Copy URLs exactly from tech_blog_articles.md 
+       - 海外コミュニティ動向: Copy URLs exactly from community_discussions.md
+       - 今週のAI開発イベント: Copy URLs exactly from events.md
+       - 注目のAI開発リポジトリ: Copy URLs exactly from trending_repositories.md
+     - If a URL doesn't exist in the source file, do not include a link
+     - Maintain source attribution with proper links exactly as provided
    - Zenn: Since Zenn uses the title from frontmatter, do not include h1 (#) in the article body
    - Start the article body directly with the introduction paragraph
 
@@ -99,44 +96,16 @@ date +%Y%m%d
     リポジトリの説明や注目ポイント]
 
     ## 📰 AI関連ニュース
-    [Content from ai_news_summary.md if available - MANDATORY: use plain URL format for EVERY news item:
+    [Content from ai_news_summary.md if available - MANDATORY: copy URLs exactly as they appear in the source file]
 
-    ### Company Name
-    - **News Title**: Description (Date)
-
-    https://example.com/news-article
-    ニュースの概要・開発者への影響]
-
-    ## 📚 テックブログ
-    [Content from tech_blog_articles.md if available - MANDATORY: use plain URL format for EVERY article:
-
-    https://example.com/article
-    記事の概要・ポイント・実装例]
+    ## 💻 テックブログ
+    [Content from tech_blog_articles.md if available - MANDATORY: copy URLs exactly as they appear in the source file]
 
     ## 🌐 海外コミュニティ動向
-    [Content from overseas_community_trends.md if available - MANDATORY: include URLs for EVERY discussion:
+    [Content from community_discussions.md if available - MANDATORY: copy URLs exactly as they appear in the source file]
 
-    ### Hacker News トレンド
-
-    https://news.ycombinator.com/item?id=12345
-    **Topic**: Description and insights
-
-    ### Reddit コミュニティ動向
-
-    **r/SubredditName**:
-
-    https://www.reddit.com/r/SubredditName/comments/abc123/
-    Discussion topic and key insights]
-
-    ## 🎯 今週のAI開発イベント
-    [Content from events.md if available - MANDATORY: use plain URL format for EVERY event:
-
-    ### Date
-    **Event Title**
-    - Details
-
-    https://connpass.com/event/12345/
-    イベントの概要・開発者向けポイント]
+    ## 📅 今週のAI開発イベント
+    [Content from events.md if available - MANDATORY: copy URLs exactly as they appear in the source file]
 
     ## 📝 まとめ
     [Specific insights, key takeaways, and actionable conclusions from this week's content. Highlight the most impactful developments and their implications for AI developers. Include forward-looking statements about trends or recommendations.]
