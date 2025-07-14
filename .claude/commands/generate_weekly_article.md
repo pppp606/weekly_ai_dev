@@ -52,7 +52,7 @@ date +%Y%m%d
      - Format: Use the exact format and URLs as they appear in the source files
      - **MANDATORY**: Include ALL relevant URLs exactly as they are written in the source files:
        - AI関連ニュース: Copy URLs exactly from ai_news_summary.md
-       - テックブログ: Copy URLs exactly from tech_blog_articles.md 
+       - テックブログ: Copy URLs exactly from tech_blog_articles.md
        - 海外コミュニティ動向: Copy URLs exactly from community_discussions.md
        - 今週のAI開発イベント: Copy URLs exactly from events.md
        - 注目のAI開発リポジトリ: Copy URLs exactly from trending_repositories.md
@@ -74,7 +74,7 @@ date +%Y%m%d
      7. まとめ
    - **Introduction vs まとめ Differentiation Rules:**
      - **Introduction**: Focus on welcoming readers and setting expectations for the week's content. Mention the main themes or categories that will be covered (e.g., "今週は新しいAIツールのリリースと、開発者向けのイベント情報をお届けします"). Keep it forward-looking and inviting.
-     - **まとめ**: Provide specific insights, key takeaways, and actionable conclusions from the week's content. Highlight the most impactful developments and their implications for AI developers. Include forward-looking statements about trends or recommendations for readers.
+     - **まとめ**: Write a very concise summary (280 characters or less in Japanese) focusing on the single most important trend or development from this week. Avoid lengthy explanations and keep it brief and impactful.
    - Use the following format for the article:
     ```markdown
     ---
@@ -108,7 +108,7 @@ date +%Y%m%d
     [Content from events.md if available - MANDATORY: copy URLs exactly as they appear in the source file]
 
     ## 📝 まとめ
-    [Specific insights, key takeaways, and actionable conclusions from this week's content. Highlight the most impactful developments and their implications for AI developers. Include forward-looking statements about trends or recommendations.]
+    [Write a concise summary in 280 characters or less (Japanese). Focus on the single most important trend or development from this week. Keep it brief and impactful.]
 
     ## 週刊AI駆動開発について
     この記事は以下リポジトリの内容で生成されています。
