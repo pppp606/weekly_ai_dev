@@ -38,7 +38,7 @@ date +%Y%m%d
    - Log which data sources were found and which were missing
 
 3. **Generate Final Article**
-   - Create a Note-compatible article that combines all available information
+   - Create a Zenn-compatible article that combines all available information
    - **Content Filtering Rules:**
      - **For Release Information**: Focus on noteworthy features, new capabilities, and significant improvements. Exclude minor bug fixes, typo corrections, and routine maintenance updates
      - **For Trending Repositories**: Include repositories that demonstrate innovation or solve important problems in AI development
@@ -61,7 +61,7 @@ date +%Y%m%d
        - 今週のAI開発イベント: Include event URLs for every event
      - Include all relevant repository URLs, release URLs, and source article URLs
      - Maintain source attribution with proper links
-   - Note: Since Zenn uses the title from frontmatter, do not include h1 (#) in the article body
+   - Zenn: Since Zenn uses the title from frontmatter, do not include h1 (#) in the article body
    - Start the article body directly with the introduction paragraph
 
 4. **Create and Save Article**
@@ -100,46 +100,52 @@ date +%Y%m%d
 
     ## 📰 AI関連ニュース
     [Content from ai_news_summary.md if available - MANDATORY: use plain URL format for EVERY news item:
-    
+
     ### Company Name
     - **News Title**: Description (Date)
-    
+
     https://example.com/news-article
     ニュースの概要・開発者への影響]
 
     ## 📚 テックブログ
     [Content from tech_blog_articles.md if available - MANDATORY: use plain URL format for EVERY article:
-    
+
     https://example.com/article
     記事の概要・ポイント・実装例]
 
     ## 🌐 海外コミュニティ動向
     [Content from overseas_community_trends.md if available - MANDATORY: include URLs for EVERY discussion:
-    
+
     ### Hacker News トレンド
-    
+
     https://news.ycombinator.com/item?id=12345
     **Topic**: Description and insights
-    
+
     ### Reddit コミュニティ動向
-    
+
     **r/SubredditName**:
-    
+
     https://www.reddit.com/r/SubredditName/comments/abc123/
     Discussion topic and key insights]
 
     ## 🎯 今週のAI開発イベント
     [Content from events.md if available - MANDATORY: use plain URL format for EVERY event:
-    
+
     ### Date
     **Event Title**
     - Details
-    
+
     https://connpass.com/event/12345/
     イベントの概要・開発者向けポイント]
 
     ## 📝 まとめ
     [Specific insights, key takeaways, and actionable conclusions from this week's content. Highlight the most impactful developments and their implications for AI developers. Include forward-looking statements about trends or recommendations.]
+
+    ## 週刊AI駆動開発について
+    この記事は以下リポジトリの内容で生成されています。
+    追加したい情報、修正、改善案などあればIssueを立てるか変更のPRをお願いします！
+
+    https://github.com/pppp606/weekly_ai_dev
     ```
 
 5. **Error Handling**
@@ -148,7 +154,7 @@ date +%Y%m%d
    - Always produce some output, even if data collection was incomplete
 
 **Execution Notes:**
-- The article should be in Japanese with appropriate formatting for Note
+- The article should be in Japanese with appropriate formatting for Zenn
 - Include relevant emojis to make the article more engaging
 - Gracefully handle missing data sources
 - **CRITICAL**: Never include sections with "No updates", "No events found", or similar empty content - completely exclude these sections
