@@ -47,13 +47,18 @@ date +%Y%m%d
      - **For Overseas Community Trends**: Focus on technical insights, emerging trends, and actionable developer tips from global communities
      - **For Tech Blog Articles**: Highlight practical tutorials, architectural insights, and innovative use cases
    - **Link Requirements:**
-     - Use plain URL format (not markdown link syntax) for link card display
-     - Format: URL followed by brief description
+     - **CRITICAL**: Use plain URL format (not markdown link syntax) for link card display in ALL sections
+     - Format: URL followed by brief description on next line
      - Example format:
        ```
        https://github.com/example/repo
        簡潔な説明文や注目ポイント
        ```
+     - **MANDATORY**: Include ALL relevant URLs in the following sections:
+       - AI関連ニュース: Include source blog/article URLs for every news item
+       - テックブログ: Include direct URLs for every tech blog article mentioned
+       - 海外コミュニティ動向: Include Hacker News and Reddit discussion URLs
+       - 今週のAI開発イベント: Include event URLs for every event
      - Include all relevant repository URLs, release URLs, and source article URLs
      - Maintain source attribution with proper links
    - Note: Since Zenn uses the title from frontmatter, do not include h1 (#) in the article body
@@ -94,20 +99,42 @@ date +%Y%m%d
     リポジトリの説明や注目ポイント]
 
     ## 📰 AI関連ニュース
-    [Content from ai_news_summary.md if available - use plain URL format:
+    [Content from ai_news_summary.md if available - MANDATORY: use plain URL format for EVERY news item:
+    
+    ### Company Name
+    - **News Title**: Description (Date)
+    
     https://example.com/news-article
     ニュースの概要・開発者への影響]
 
     ## 📚 テックブログ
-    [Content from tech_blog_articles.md if available - use plain URL format:
+    [Content from tech_blog_articles.md if available - MANDATORY: use plain URL format for EVERY article:
+    
     https://example.com/article
-    記事の概要・ポイント]
+    記事の概要・ポイント・実装例]
 
     ## 🌐 海外コミュニティ動向
-    [Content from overseas_community_trends.md if available]
+    [Content from overseas_community_trends.md if available - MANDATORY: include URLs for EVERY discussion:
+    
+    ### Hacker News トレンド
+    
+    https://news.ycombinator.com/item?id=12345
+    **Topic**: Description and insights
+    
+    ### Reddit コミュニティ動向
+    
+    **r/SubredditName**:
+    
+    https://www.reddit.com/r/SubredditName/comments/abc123/
+    Discussion topic and key insights]
 
     ## 🎯 今週のAI開発イベント
-    [Content from events.md if available - use plain URL format:
+    [Content from events.md if available - MANDATORY: use plain URL format for EVERY event:
+    
+    ### Date
+    **Event Title**
+    - Details
+    
     https://connpass.com/event/12345/
     イベントの概要・開発者向けポイント]
 
