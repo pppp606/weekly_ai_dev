@@ -39,8 +39,19 @@ date +%Y-%m-%d
      - Save the article to the appropriate location
    - The article generation is handled separately for better error recovery and modularity
 
-4. Commit Generated Content
-   - After successful article generation, execute the `commit_weekly_digest.md` command
+4. Article Guardrail Review
+   - Before committing, execute the `article_guardrail_review.md` command on the generated article
+   - This command will:
+     - Review the article for confidential information, inappropriate content, security concerns
+     - Check for political/religious bias and compliance with content policies
+     - Identify any problematic content that needs to be removed
+   - If issues are found:
+     - Remove or modify problematic content from the article
+     - Regenerate the article if necessary
+     - Re-run the guardrail review until the article passes all checks
+
+5. Commit Generated Content
+   - After successful article generation and guardrail approval, execute the `commit_weekly_digest.md` command
    - This command will:
      - Add all generated files in `resources/[TODAY_DATE]/` and `articles/` directories
      - Create a commit with meaningful message including the date
