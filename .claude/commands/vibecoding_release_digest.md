@@ -77,4 +77,13 @@ date +%Y-%m-%d
 
 **Important**: When checking dates, ensure you properly calculate the 7-day window from today's date. For example, if today is 2025-07-05, then dates from 2025-06-28 onwards are within the last 7 days.
 
+7.  **`kiro`**
+  *   **Source Type:** Web Changelog
+  *   **How to check:**
+    1.  Manually visit `https://kiro.dev/changelog/`.
+    2.  Identify the latest release and its date.
+    3.  If the release date is within the last 7days, summarize the key changes.
+    4.  **Include Links:** Website URL (https://kiro.dev) and Changelog URL (https://kiro.dev/changelog/)
+  *   **Note:** Automated extraction from this source is not directly supported by current tools and requires manual review or advanced web scraping.
+
 **New Repositories and Rules (Manual Check Required for Web Changelogs):**
