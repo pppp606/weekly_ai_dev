@@ -2,6 +2,8 @@
 
 This directory contains BATS (Bash Automated Testing System) tests for the weekly AI development digest project.
 
+**Note**: These tests must be run locally where Claude Code is installed, as they validate Claude command functionality.
+
 ## Directory Structure
 
 ```
@@ -12,7 +14,7 @@ tests/
 └── README.md       # This file
 ```
 
-## Running Tests
+## Running Tests Locally
 
 ```bash
 # Run all tests

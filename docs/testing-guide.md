@@ -201,24 +201,11 @@ Test various failure scenarios:
 3. **Minimal Resources**: Use only necessary resources
 4. **Efficient Cleanup**: Clean up promptly to avoid resource leaks
 
-## Continuous Integration
+## Local Development
 
-Tests run automatically on:
-- Push to main branch
-- Pull requests to main
-- Feature branch pushes
+Since these tests interact with Claude Code commands, they must be run locally where Claude Code is installed.
 
-### CI Configuration
-
-The GitHub Actions workflow (`.github/workflows/test.yml`):
-- Installs BATS testing framework
-- Sets up Node.js environment
-- Runs unit and integration tests
-- Provides test result summaries
-
-### Local Development
-
-Before committing:
+### Running Tests Locally
 
 ```bash
 # Run all tests
@@ -230,6 +217,10 @@ npm run test:unit -- --verbose
 # Run tests with TAP output
 npm run test:watch
 ```
+
+### Before Committing
+
+It's recommended to run tests locally before committing changes to ensure Claude commands are working correctly.
 
 ## Troubleshooting
 
