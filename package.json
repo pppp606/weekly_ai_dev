@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "bats tests/",
+    "test:unit": "bats tests/unit/",
+    "test:integration": "bats tests/integration/",
+    "test:watch": "bats --tap tests/"
   },
   "repository": {
     "type": "git",
@@ -19,5 +22,8 @@
   "description": "",
   "dependencies": {
     "zenn-cli": "^0.2.1"
+  },
+  "devDependencies": {
+    "bats": "^1.11.0"
   }
 }

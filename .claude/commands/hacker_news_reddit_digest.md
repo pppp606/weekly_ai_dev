@@ -42,8 +42,10 @@ date +%Y-%m-%d
 
 1. **For Hacker News**: Use WebFetch to check for top posts from the past week
 2. **For Reddit**: Use Playwright (mcp__playwright tools) to navigate Reddit pages, as Reddit blocks WebFetch requests due to bot detection
-   - Navigate to each Reddit URL using Playwright
-   - Extract post titles, content, and discussion summaries
+   - Start with one Reddit URL using `mcp__playwright__browser_navigate`
+   - Extract post titles, content, and discussion summaries from the current page
+   - **IMPORTANT**: For additional Reddit sources, use `mcp__playwright__browser_navigate` in the SAME tab (do NOT open new tabs)
+   - Navigate between r/LocalLLaMA, r/MachineLearning, and r/artificial using the same tab
    - Focus on top posts from the past week
 3. Filter for content relevant to AI development (not general AI news)
 4. Extract key insights and practical takeaways for developers
