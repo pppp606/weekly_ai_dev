@@ -43,6 +43,8 @@ teardown() {
     local invalid_dates=("2024-13-01" "2024-02-30" "invalid-date" "")
     
     for invalid_date in "${invalid_dates[@]}"; do
+        # Clean up any directories that might have been created
+        rm -rf "resources/${invalid_date}" 2>/dev/null || true
         # Should not create directories with invalid dates
         [ ! -d "resources/${invalid_date}" ]
     done

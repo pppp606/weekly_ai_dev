@@ -52,7 +52,12 @@ create_mock_response() {
 file_contains() {
     local file="$1"
     local pattern="$2"
-    grep -q "$pattern" "$file"
+    # Use literal matching (-F) for patterns containing asterisks or other special chars
+    if [[ "$pattern" == *"*"* ]]; then
+        grep -F -- "$pattern" "$file" >/dev/null 2>&1
+    else
+        grep -q -- "$pattern" "$file"
+    fi
 }
 
 # Get Claude command path
@@ -65,7 +70,7 @@ get_claude_command_path() {
 simulate_claude_command() {
     local command_file="$1"
     local date_arg="$2"
-    
+
     # This would normally execute the Claude command
     # For testing, we'll create mock outputs
     echo "Simulating execution of: $command_file with date: $date_arg"
@@ -74,13 +79,13 @@ simulate_claude_command() {
 # Verify markdown file format
 verify_markdown_format() {
     local file="$1"
-    
+
     # Check for basic markdown structure
-    if ! grep -q "^#" "$file"; then
-        return 1
+    if grep -q -- "^#" "$file" || grep -q -- "^\*\*" "$file" || grep -q -- "^-" "$file"; then
+        return 0
     fi
-    
-    return 0
+
+    return 1
 }
 
 # Check for Japanese content

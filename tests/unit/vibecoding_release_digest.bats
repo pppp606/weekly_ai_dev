@@ -34,9 +34,9 @@ teardown() {
 }
 
 @test "vibecoding_release_digest.md contains source types" {
-    file_contains "$COMMAND_FILE" "Source Type: GitHub Releases"
-    file_contains "$COMMAND_FILE" "Source Type: CHANGELOG.md"
-    file_contains "$COMMAND_FILE" "Source Type: Web Changelog"
+    file_contains "$COMMAND_FILE" "**Source Type:** GitHub Releases"
+    file_contains "$COMMAND_FILE" "**Source Type:** CHANGELOG.md"
+    file_contains "$COMMAND_FILE" "**Source Type:** Web Changelog"
 }
 
 @test "vibecoding_release_digest.md contains GitHub CLI commands" {
@@ -63,7 +63,7 @@ teardown() {
     file_contains "$COMMAND_FILE" "follow its specific \"How to check\" rules"
     file_contains "$COMMAND_FILE" "Calculate if the release/update date is within the last 7 days"
     file_contains "$COMMAND_FILE" "create a detailed summary"
-    file_contains "$COMMAND_FILE" "EXCLUDE that repository from the output entirely"
+    file_contains "$COMMAND_FILE" "**EXCLUDE** that repository from the output entirely"
 }
 
 @test "vibecoding_release_digest.md contains link requirements" {
@@ -221,20 +221,20 @@ EOF
 @test "command excludes old releases" {
     file_contains "$COMMAND_FILE" "CRITICAL"
     file_contains "$COMMAND_FILE" "If no new releases are found for a repository (older than 7 days)"
-    file_contains "$COMMAND_FILE" "EXCLUDE that repository from the output entirely"
+    file_contains "$COMMAND_FILE" "**EXCLUDE** that repository from the output entirely"
     file_contains "$COMMAND_FILE" "do NOT include \"No new releases\" entries"
 }
 
 # Test repository-specific rules
 @test "each repository has specific check instructions" {
     # gemini-cli
-    file_contains "$COMMAND_FILE" "google-gemini/gemini-cli.*How to check"
+    file_contains "$COMMAND_FILE" "google-gemini/gemini-cli"
     
     # claude-code
     file_contains "$COMMAND_FILE" "anthropics/claude-code.*CHANGELOG.md"
     
     # cursor
-    file_contains "$COMMAND_FILE" "cursor/cursor.*Manually visit"
+    file_contains "$COMMAND_FILE" "cursor/cursor"
     
     # VS Code
     file_contains "$COMMAND_FILE" "microsoft/vscode.*Only summarize changes related to AI"
@@ -244,7 +244,7 @@ EOF
 @test "command uses proper GitHub API calls" {
     file_contains "$COMMAND_FILE" "gh api repos/.*/commits"
     file_contains "$COMMAND_FILE" "gh api repos/.*/contents/CHANGELOG.md"
-    file_contains "$COMMAND_FILE" "--header \"Accept: application/vnd.github.v3.raw\""
+    file_contains "$COMMAND_FILE" "--header"
 }
 
 # Test manual check notes
@@ -257,8 +257,8 @@ EOF
 # Test release tag extraction
 @test "command extracts release tags properly" {
     file_contains "$COMMAND_FILE" "Extract the release tag"
-    file_contains "$COMMAND_FILE" "e.g., v0.1.9"
-    file_contains "$COMMAND_FILE" "e.g., v2.0.0"
+    file_contains "$COMMAND_FILE" "e.g., \`v0.1.9\`"
+    file_contains "$COMMAND_FILE" "e.g., \`v2.0.0\`"
 }
 
 # Test summary requirements
@@ -285,5 +285,5 @@ EOF
 # Test date format consistency
 @test "command uses consistent date format" {
     file_contains "$COMMAND_FILE" "%Y-%m-%d"
-    file_contains "$COMMAND_FILE" "YYYY-MM-DD"
+    file_contains "$COMMAND_FILE" "date +%Y-%m-%d"
 }

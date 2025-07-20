@@ -90,8 +90,8 @@ teardown() {
     mock_content=$(get_mock_trending_repos_data)
     [[ -n "$mock_content" ]]
     echo "$mock_content" | grep -q "AIトレンドリポジトリ"
-    echo "$mock_content" | grep -q "機械学習フレームワーク"
-    echo "$mock_content" | grep -q "LLMツール"
+    echo "$mock_content" | grep -q "ollama/ollama"
+    echo "$mock_content" | grep -q "概要"
 }
 
 # Test output file creation

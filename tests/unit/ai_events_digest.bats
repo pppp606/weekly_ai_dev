@@ -89,8 +89,8 @@ teardown() {
     mock_content=$(get_mock_events_data)
     [[ -n "$mock_content" ]]
     echo "$mock_content" | grep -q "AI開発イベント"
-    echo "$mock_content" | grep -q "今週のイベント"
-    echo "$mock_content" | grep -q "来週のイベント"
+    echo "$mock_content" | grep -q "Upcoming Events"
+    echo "$mock_content" | grep -q "主催者"
 }
 
 # Test output file creation

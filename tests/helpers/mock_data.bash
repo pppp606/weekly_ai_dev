@@ -65,7 +65,7 @@ EOF
 # Mock trending repositories data
 get_mock_trending_repos_data() {
     cat << 'EOF'
-# Trending AI Development Repositories - 2025-07-20
+# AIトレンドリポジトリ - 2025-07-20
 
 ## [ollama/ollama](https://github.com/ollama/ollama)
 
@@ -100,7 +100,7 @@ EOF
 # Mock events data
 get_mock_events_data() {
     cat << 'EOF'
-# AI Development Events - 2025-07-20
+# AI開発イベント - 2025-07-20
 
 ## Upcoming Events (Next 7 Days)
 
@@ -133,7 +133,11 @@ EOF
 # Mock release information data
 get_mock_release_data() {
     cat << 'EOF'
-# Release Information - 2025-07-20
+# リリース情報 - 2025-07-20
+
+## 主要なリリース
+
+### ツール・ライブラリ
 
 ## google-gemini/gemini-cli v0.2.0
 - **Release Date**: 2025-07-19
