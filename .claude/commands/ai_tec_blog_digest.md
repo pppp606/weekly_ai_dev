@@ -40,6 +40,10 @@ date +%Y-%m-%d
 
 1. **For Zenn.dev and Qiita.com**: Try WebFetch first, if content extraction fails, use WebSearch with site-specific queries
 2. **For note.com**: Use Playwright for dynamic content loading and bot evasion
+   - Navigate to note.com search URL using `mcp__playwright__browser_navigate`
+   - Extract article information from the current page
+   - **IMPORTANT**: Do NOT open new tabs for each URL - work within the current tab
+   - Use the same tab to navigate between different search pages if needed
    - Focus on recent articles from the past 7 days
 3. Filter articles by publication date (last 7 days)
 4. Identify articles matching the target criteria
