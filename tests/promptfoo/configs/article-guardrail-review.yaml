@@ -1,5 +1,5 @@
 # Test configuration for article_guardrail_review command
-description: "Tests for the article guardrail review command"
+description: "Comprehensive tests for the article guardrail review command with custom evaluators"
 
 providers:
   - id: file://providers/claude-code-provider.ts
@@ -25,6 +25,13 @@ tests:
         value: "NEEDS REVISION"
       - type: contains
         value: "Guardrail Review Results"
+      # Custom evaluators
+      - type: javascript
+        value: file://evaluators/article-approval-evaluator.ts
+      - type: javascript
+        value: file://evaluators/format-compliance-evaluator.ts
+      - type: javascript
+        value: file://evaluators/response-quality-evaluator.ts
 
   - description: "Review an article with multiple guardrail violations"
     vars:
@@ -50,6 +57,15 @@ tests:
           3. Personal information (names, emails, phone numbers)
           4. Political bias
           5. Medical advice without proper disclaimers
+      # Custom evaluators
+      - type: javascript
+        value: file://evaluators/article-approval-evaluator.ts
+      - type: javascript
+        value: file://evaluators/violation-detection-evaluator.ts
+      - type: javascript
+        value: file://evaluators/format-compliance-evaluator.ts
+      - type: javascript
+        value: file://evaluators/response-quality-evaluator.ts
 
   - description: "Review an empty article file"
     vars:
@@ -62,6 +78,11 @@ tests:
           - "empty"
           - "no content"
           - "missing content"
+      # Custom evaluators
+      - type: javascript
+        value: file://evaluators/article-approval-evaluator.ts
+      - type: javascript
+        value: file://evaluators/format-compliance-evaluator.ts
 
   - description: "Review with missing article file"
     vars:
@@ -73,6 +94,11 @@ tests:
           - "does not exist"
           - "cannot read"
           - "failed to read"
+      # Custom evaluators
+      - type: javascript
+        value: file://evaluators/format-compliance-evaluator.ts
+      - type: javascript
+        value: file://evaluators/response-quality-evaluator.ts
 
   - description: "Verify proper formatting of review output"
     vars:
@@ -89,6 +115,11 @@ tests:
           - Has a "Status" field with one of: APPROVED, NEEDS REVISION, or BLOCKED
           - Includes a "Summary" section
           - If issues are found, lists them with line numbers/sections and suggested fixes
+      # Custom evaluators (format is the primary focus here)
+      - type: javascript
+        value: file://evaluators/format-compliance-evaluator.ts
+      - type: javascript
+        value: file://evaluators/response-quality-evaluator.ts
 
 # Test environment setup
 defaultTest:

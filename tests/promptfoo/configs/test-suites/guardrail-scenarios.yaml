@@ -36,6 +36,13 @@ tests:
           3. Internal company information
           4. Unpublished research data
           5. Non-public pricing information
+      # Custom evaluators
+      - type: javascript
+        value: file://../../evaluators/article-approval-evaluator.ts
+      - type: javascript
+        value: file://../../evaluators/violation-detection-evaluator.ts
+      - type: javascript
+        value: file://../../evaluators/format-compliance-evaluator.ts
 
   - description: "Detect personal information exposure"
     vars:
@@ -56,6 +63,11 @@ tests:
         value: |
           Should detect personal information like names, emails, phone numbers,
           and other private contact details that shouldn't be publicly shared.
+      # Custom evaluators
+      - type: javascript
+        value: file://../../evaluators/article-approval-evaluator.ts
+      - type: javascript
+        value: file://../../evaluators/violation-detection-evaluator.ts
 
   # Security Concerns Tests
   - description: "Detect exploit code and security vulnerabilities"
@@ -298,6 +310,15 @@ tests:
           4. Political bias and inflammatory content
           5. Medical advice without disclaimers
           The review should list each violation category with specific examples.
+      # Custom evaluators - comprehensive analysis
+      - type: javascript
+        value: file://../../evaluators/article-approval-evaluator.ts
+      - type: javascript
+        value: file://../../evaluators/violation-detection-evaluator.ts
+      - type: javascript
+        value: file://../../evaluators/format-compliance-evaluator.ts
+      - type: javascript
+        value: file://../../evaluators/response-quality-evaluator.ts
 
 # Test environment setup
 defaultTest:
