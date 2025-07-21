@@ -3,6 +3,7 @@ import Anthropic from '@anthropic-ai/sdk';
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
+import { MockDateProvider } from './mock-date-provider.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -14,9 +15,12 @@ const __dirname = path.dirname(__filename);
 export class ClaudeCodeProvider implements ApiProvider {
   private anthropic: Anthropic;
   private apiKey: string;
+  private isTestMode: boolean;
 
-  constructor(options: { apiKey?: string } = {}) {
+  constructor(options: { apiKey?: string; testMode?: boolean } = {}) {
     this.apiKey = options.apiKey || process.env.ANTHROPIC_API_KEY || '';
+    this.isTestMode = options.testMode || process.env.CLAUDE_CODE_TEST_MODE === 'true';
+    
     if (!this.apiKey) {
       throw new Error('ANTHROPIC_API_KEY is required');
     }
@@ -84,11 +88,19 @@ export class ClaudeCodeProvider implements ApiProvider {
     }
 
     const commandFile = commandMatch[0];
-    const projectRoot = path.resolve(__dirname, '../../..');
+    const projectRoot = this.isTestMode 
+      ? path.resolve(__dirname, '../../..')  // In test mode, use mock project root
+      : path.resolve(__dirname, '../../..');
     const commandPath = path.join(projectRoot, commandFile);
 
     try {
       const commandContent = await fs.readFile(commandPath, 'utf-8');
+      
+      // In test mode, replace date references with mock date
+      if (this.isTestMode && commandFile.includes('article_guardrail_review')) {
+        return this.replaceDateReferences(commandContent);
+      }
+      
       return commandContent;
     } catch (error) {
       console.warn(`Failed to read command file ${commandFile}: ${error.message}`);
@@ -97,18 +109,44 @@ export class ClaudeCodeProvider implements ApiProvider {
   }
 
   /**
+   * Replace date references in command content for test mode
+   */
+  private replaceDateReferences(content: string): string {
+    const mockDate = MockDateProvider.getDateString();
+    const mockDateCompact = MockDateProvider.getDateCompact();
+    
+    // Replace date command output
+    content = content.replace(/date \+%Y-%m-%d/g, `echo "${mockDate}"`);
+    
+    // Replace file path patterns
+    content = content.replace(/\{YYYYMMDD\}/g, mockDateCompact);
+    content = content.replace(/\{YYYY-MM-DD\}/g, mockDate);
+    
+    return content;
+  }
+
+  /**
    * Build the system prompt for Claude Code environment
    */
   private buildSystemPrompt(commandContext: string | null): string {
+    const workingDir = this.isTestMode 
+      ? path.resolve(__dirname, '../../..') 
+      : process.cwd();
+    
+    const currentDate = this.isTestMode 
+      ? MockDateProvider.getDateString() 
+      : new Date().toISOString().split('T')[0];
+    
     const basePrompt = `You are Claude Code, Anthropic's official CLI for Claude.
 You are an agent for Claude Code, executing commands in a development environment.
 You have access to file system operations, web requests, and other tools necessary for development tasks.
 
 Environment information:
-- Working directory: ${process.cwd()}
+- Working directory: ${workingDir}
 - Platform: ${process.platform}
 - Node version: ${process.version}
-- Today's date: ${new Date().toISOString().split('T')[0]}
+- Today's date: ${currentDate}
+${this.isTestMode ? '- Test Mode: Active (using mock data)' : ''}
 
 You should execute the requested task and provide a detailed response about what was done.`;
 

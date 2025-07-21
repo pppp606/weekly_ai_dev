@@ -7,6 +7,7 @@
     "test": "promptfoo eval",
     "test:watch": "promptfoo eval --watch",
     "test:specific": "promptfoo eval -c",
+    "test:article-guardrail": "CLAUDE_CODE_TEST_MODE=true promptfoo eval --config configs/article-guardrail-review.yaml",
     "view": "promptfoo view",
     "clean": "rm -rf results/",
     "lint": "eslint . --ext .ts",
