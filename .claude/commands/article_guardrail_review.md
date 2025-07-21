@@ -2,6 +2,14 @@
 
 Review the generated weekly AI digest article for compliance with content policies and safety guidelines.
 
+## Setup
+```bash
+date +%Y-%m-%d
+```
+
+## Target File
+Review the article at: `articles/weekly-ai-digest-{YYYYMMDD}.md` where YYYYMMDD is today's date in the format returned by the date command above.
+
 ## Review Checklist
 
 Please carefully review the article at the specified path and check for the following:
