@@ -1,0 +1,23 @@
+# Main promptfoo configuration
+# This file configures the testing framework for Claude Code commands
+
+# Default provider configuration
+providers:
+  - id: claude-code
+    config:
+      type: custom
+      module: ./providers/claude-code-provider.ts
+
+# Default prompt directory
+prompts:
+  - .claude/commands/*.md
+
+# Output settings
+outputPath: ./results
+
+# Evaluation settings
+evaluateOptions:
+  maxConcurrency: 1
+  showProgressBar: true
+
+# Test suites will be defined in individual config files under configs/

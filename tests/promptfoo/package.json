@@ -1,0 +1,30 @@
+{
+  "name": "weekly-ai-dev-promptfoo-tests",
+  "version": "1.0.0",
+  "description": "Promptfoo testing infrastructure for Weekly AI Dev digest commands",
+  "type": "module",
+  "scripts": {
+    "test": "promptfoo eval",
+    "test:watch": "promptfoo eval --watch",
+    "test:specific": "promptfoo eval -c",
+    "view": "promptfoo view",
+    "clean": "rm -rf results/",
+    "lint": "eslint . --ext .ts",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "promptfoo": "^0.49.0",
+    "@anthropic-ai/sdk": "^0.24.0",
+    "dotenv": "^16.4.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.19",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "eslint": "^8.57.0",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
