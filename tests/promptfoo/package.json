@@ -1,0 +1,22 @@
+{
+  "name": "article-guardrail-review-tests",
+  "version": "1.0.0",
+  "description": "Claude Code + promptfoo integration tests for article_guardrail_review.md",
+  "type": "module",
+  "scripts": {
+    "test": "promptfoo eval -c configs/article-guardrail-review.yaml",
+    "test:basic": "promptfoo eval -c configs/test-suites/basic-scenarios.yaml",
+    "test:guardrails": "promptfoo eval -c configs/test-suites/guardrail-scenarios.yaml",
+    "test:edge-cases": "promptfoo eval -c configs/test-suites/edge-cases.yaml",
+    "test:all": "npm run test:basic && npm run test:guardrails && npm run test:edge-cases",
+    "view": "promptfoo view",
+    "check": "scripts/check-setup.sh",
+    "validate": "node scripts/simple-validation.cjs"
+  },
+  "dependencies": {
+    "promptfoo": "^0.49.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

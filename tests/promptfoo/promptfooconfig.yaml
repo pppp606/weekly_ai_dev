@@ -1,0 +1,24 @@
+# Main promptfoo configuration
+# This file configures the testing framework for Claude Code commands
+
+# Claude Code provider configuration - executes via `claude -p`
+providers:
+  - id: claude-code
+    config:
+      type: custom
+      module: ./providers/claude-code-provider.ts
+      mockMode: true
+
+# Test data - article paths to review
+prompts:
+  - "./mocks/articles/weekly-ai-digest-20250721.md"
+
+# Output settings
+outputPath: ./results
+
+# Evaluation settings
+evaluateOptions:
+  maxConcurrency: 1
+  showProgressBar: true
+
+# Test suites will be defined in individual config files under configs/
