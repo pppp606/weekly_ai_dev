@@ -1,16 +1,17 @@
 # Main promptfoo configuration
 # This file configures the testing framework for Claude Code commands
 
-# Default provider configuration
+# Claude Code provider configuration - executes via `claude -p`
 providers:
-  - id: article-guardrail
+  - id: claude-code
     config:
       type: custom
-      module: ./providers/article-guardrail-provider.ts
+      module: ./providers/claude-code-provider.ts
+      mockMode: true
 
-# Default prompt - specifically for article guardrail review
+# Test data - article paths to review
 prompts:
-  - ../.claude/commands/article_guardrail_review.md
+  - "./mocks/articles/weekly-ai-digest-20250721.md"
 
 # Output settings
 outputPath: ./results
