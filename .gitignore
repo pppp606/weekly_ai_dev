@@ -2,3 +2,16 @@ node_modules
 .DS_Store
 .keep
 .claude/settings.local.json
+
+# Promptfoo test results and artifacts
+tests/promptfoo/results/
+tests/promptfoo/output/
+tests/promptfoo/coverage/
+tests/promptfoo/.nyc_output/
+tests/promptfoo/tmp/
+tests/promptfoo/temp/
+tests/promptfoo/.cache/
+tests/promptfoo/*.log
+tests/promptfoo/.env
+tests/promptfoo/.env.local
+tests/promptfoo/.env.*.local
