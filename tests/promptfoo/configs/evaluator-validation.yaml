@@ -2,7 +2,7 @@
 description: "Validation tests for custom article guardrail evaluators"
 
 providers:
-  - id: file://providers/claude-code-provider.ts
+  - id: file://providers/article-guardrail-provider.ts
     config:
       testMode: true
       model: claude-3-5-sonnet-20241022

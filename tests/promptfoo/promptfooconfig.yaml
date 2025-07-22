@@ -3,14 +3,14 @@
 
 # Default provider configuration
 providers:
-  - id: claude-code
+  - id: article-guardrail
     config:
       type: custom
-      module: ./providers/claude-code-provider.ts
+      module: ./providers/article-guardrail-provider.ts
 
-# Default prompt directory
+# Default prompt - specifically for article guardrail review
 prompts:
-  - .claude/commands/*.md
+  - ../.claude/commands/article_guardrail_review.md
 
 # Output settings
 outputPath: ./results

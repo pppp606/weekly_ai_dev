@@ -191,7 +191,7 @@ class SetupValidator {
 
   private checkProviders(): void {
     const providers = [
-      'tests/promptfoo/providers/claude-code-provider.ts',
+      'tests/promptfoo/providers/article-guardrail-provider.ts',
       'tests/promptfoo/providers/mock-date-provider.ts'
     ];
 

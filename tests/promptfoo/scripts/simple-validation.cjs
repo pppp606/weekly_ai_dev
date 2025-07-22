@@ -99,7 +99,7 @@ function validateTestStructure() {
   
   // Check provider files
   const providers = [
-    'providers/claude-code-provider.ts',
+    'providers/article-guardrail-provider.ts',
     'providers/mock-date-provider.ts'
   ];
   
@@ -167,10 +167,9 @@ function validateTestStructure() {
   
   // Check script files
   const scripts = [
-    'scripts/run-tests.ts',
     'scripts/validate-setup.ts',
-    'scripts/dry-run-test.ts',
-    'scripts/simple-validation.cjs'
+    'scripts/simple-validation.cjs',
+    'scripts/simple-evaluator-test.js'
   ];
   
   for (const script of scripts) {
@@ -202,11 +201,12 @@ function main() {
   if (success) {
     log('\n🎯 Next Steps:', 'blue');
     log('   1. Install dependencies: npm install', 'white');
-    log('   2. Run full tests: npm run test:article-guardrail', 'white'); 
+    log('   2. Run main test suite: npm test', 'white'); 
     log('   3. Or run individual suites:', 'white');
-    log('      - npx tsx scripts/run-tests.ts basic-scenarios', 'white');
-    log('      - npx tsx scripts/run-tests.ts guardrail-scenarios', 'white');
-    log('      - npx tsx scripts/run-tests.ts edge-cases', 'white');
+    log('      - npm run test:basic', 'white');
+    log('      - npm run test:guardrails', 'white');
+    log('      - npm run test:edge-cases', 'white');
+    log('      - npm run test:evaluators', 'white');
   }
   
   if (!success) {

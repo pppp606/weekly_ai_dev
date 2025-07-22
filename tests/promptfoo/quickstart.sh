@@ -5,8 +5,8 @@
 
 set -e
 
-echo "🚀 Weekly AI Dev Digest - Promptfoo Quick Start"
-echo "=============================================="
+echo "🚀 Article Guardrail Review - Testing Quick Start"
+echo "=================================================="
 
 # Configuration
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
