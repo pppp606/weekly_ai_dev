@@ -3,7 +3,7 @@ import Anthropic from '@anthropic-ai/sdk';
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
-import { MockDateProvider } from './mock-date-provider.js';
+// Removed MockDateProvider - not needed for article review
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
