@@ -1,31 +1,20 @@
 {
   "name": "article-guardrail-review-tests",
   "version": "1.0.0",
-  "description": "Promptfoo testing infrastructure for article guardrail review command",
+  "description": "Claude Code + promptfoo integration tests for article_guardrail_review.md",
   "type": "module",
   "scripts": {
     "test": "promptfoo eval -c configs/article-guardrail-review.yaml",
     "test:basic": "promptfoo eval -c configs/test-suites/basic-scenarios.yaml",
     "test:guardrails": "promptfoo eval -c configs/test-suites/guardrail-scenarios.yaml",
     "test:edge-cases": "promptfoo eval -c configs/test-suites/edge-cases.yaml",
-    "test:evaluators": "promptfoo eval -c configs/evaluator-validation.yaml",
-    "test:all": "npm run test:basic && npm run test:guardrails && npm run test:edge-cases && npm run test:evaluators",
-    "test:watch": "promptfoo eval -c configs/article-guardrail-review.yaml --watch",
-    "test:debug": "DEBUG=promptfoo:* promptfoo eval -c configs/article-guardrail-review.yaml",
+    "test:all": "npm run test:basic && npm run test:guardrails && npm run test:edge-cases",
     "view": "promptfoo view",
-    "validate": "node scripts/simple-validation.cjs",
-    "type-check": "tsc --noEmit"
+    "check": "scripts/check-setup.sh",
+    "validate": "node scripts/simple-validation.cjs"
   },
   "dependencies": {
-    "promptfoo": "^0.49.0",
-    "@anthropic-ai/sdk": "^0.24.0",
-    "js-yaml": "^4.1.0"
-  },
-  "devDependencies": {
-    "@types/node": "^20.11.19",
-    "typescript": "^5.3.3",
-    "tsx": "^4.20.0",
-    "@types/js-yaml": "^4.0.9"
+    "promptfoo": "^0.49.0"
   },
   "engines": {
     "node": ">=18.0.0"
