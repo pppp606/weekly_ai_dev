@@ -7,7 +7,11 @@
         ]
       },
       "no-ai-hype-expressions": true,
-      "no-ai-emphasis-patterns": true,
+      "no-ai-emphasis-patterns": {
+        "allows": [
+          "/^- \\*\\*[^:]+\\*\\*:/m"
+        ]
+      },
       "no-ai-colon-continuation": true,
       "ai-tech-writing-guideline": {
         "severity": "info"
