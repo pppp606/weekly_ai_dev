@@ -19,5 +19,9 @@
   "description": "",
   "dependencies": {
     "zenn-cli": "^0.2.1"
+  },
+  "devDependencies": {
+    "@textlint-ja/textlint-rule-preset-ai-writing": "^1.6.0",
+    "textlint": "^15.2.1"
   }
 }
