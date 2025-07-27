@@ -117,10 +117,24 @@ date +%Y%m%d
     https://github.com/pppp606/weekly_ai_dev
     ```
 
-5. **Error Handling**
+5. **Run textlint Quality Check**
+   - After generating the article, run textlint to check and fix the article:
+     ```bash
+     npx textlint --fix articles/weekly_ai_YYYYMMDD.md
+     ```
+   - Generate a detailed textlint report and save it to the resources directory:
+     ```bash
+     npx textlint articles/weekly_ai_YYYYMMDD.md --format json > resources/[TODAY_DATE]/textlint-report.json
+     ```
+   - **IMPORTANT**: This step is non-blocking - continue even if textlint finds issues
+   - The `--fix` option will automatically correct fixable issues
+   - The JSON report provides detailed information about any remaining issues
+
+6. **Error Handling**
    - If no data files are found, generate a minimal article explaining the situation
    - Log any errors encountered during processing
    - Always produce some output, even if data collection was incomplete
+   - If textlint fails to run, log the error but continue with the pipeline
 
 **Execution Notes:**
 - The article should be in Japanese with appropriate formatting for Zenn
@@ -128,3 +142,4 @@ date +%Y%m%d
 - Gracefully handle missing data sources
 - **CRITICAL**: Never include sections with "No updates", "No events found", or similar empty content - completely exclude these sections
 - Focus on quality over quantity - better to have fewer well-curated sections than many sparse ones
+- textlint will automatically fix common issues like inconsistent punctuation and spacing

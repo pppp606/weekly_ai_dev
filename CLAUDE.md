@@ -88,12 +88,32 @@ Located at: `.claude/commands/ai_tec_blog_digest.md`
 1. **Information Collection**: Individual digest commands collect information from various sources
 2. **Data Aggregation**: Information is saved to `resources/YYYY-MM-DD/` directory
 3. **Article Generation**: Pipeline command creates final article in `articles/` directory
-4. **Publication**: Articles are formatted for Note publication
+4. **Quality Assurance**: Generated articles are automatically checked with textlint for Japanese AI writing guidelines
+5. **Publication**: Articles are formatted for Note publication with improved quality and consistency
 
 ### Failure Recovery Options
 
 - **Complete Failure**: If pipeline fails completely, run individual digest commands manually
 - **Partial Failure**: Use `generate_weekly_article.md` to create article from existing data
+
+## Quality Assurance with textlint
+
+This project uses textlint to ensure high-quality Japanese AI writing. The system automatically checks generated articles for:
+
+- **AI Writing Guidelines**: Prevents overuse of AI-generated expressions and hype language
+- **Technical Writing Standards**: Ensures clear, professional communication
+- **Formatting Consistency**: Maintains consistent bullet points and emphasis patterns
+- **Content Quality**: Reduces redundant expressions and improves readability
+
+### textlint Configuration
+
+The project uses `@textlint-ja/preset-ai-writing` with customized rules:
+- Detection of AI-generated hype expressions
+- Prevention of excessive emphasis patterns
+- Control of colon continuation usage
+- Technical writing guideline enforcement
+
+Generated articles are automatically validated during the pipeline execution, ensuring publication-ready quality.
 
 ## Important Notes
 
