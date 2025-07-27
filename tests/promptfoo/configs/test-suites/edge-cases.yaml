@@ -1,0 +1,295 @@
+# Edge Cases Test Scenarios
+description: "Tests for edge cases, error conditions, and boundary scenarios"
+
+providers:
+  - id: file://providers/article-guardrail-provider.ts
+    config:
+      testMode: true
+      model: claude-3-5-sonnet-20241022
+      temperature: 0.3
+      max_tokens: 4096
+
+prompts:
+  - file: ../../.claude/commands/article_guardrail_review.md
+
+tests:
+  # File system edge cases
+  - description: "Handle missing article file"
+    vars:
+      articlePath: "tests/promptfoo/mocks/articles/non-existent-file.md"
+    assert:
+      - type: contains-any
+        values:
+          - "not found"
+          - "does not exist"
+          - "cannot read"
+          - "failed to read"
+          - "file not found"
+      - type: llm-rubric
+        value: |
+          Should gracefully handle missing files and provide clear error message
+          indicating the file could not be found or accessed.
+
+  - description: "Handle empty article file"
+    vars:
+      articlePath: "tests/promptfoo/mocks/articles/weekly-ai-digest-20250721-empty.md"
+    assert:
+      - type: contains
+        value: "BLOCKED"
+      - type: contains-any
+        values:
+          - "empty"
+          - "no content"
+          - "missing content"
+          - "insufficient content"
+      - type: llm-rubric
+        value: |
+          Should block empty articles and provide feedback about insufficient content
+          for publication.
+
+  - description: "Handle corrupted or malformed article file"
+    vars:
+      articlePath: "tests/promptfoo/mocks/articles/edge-cases/corrupted-file.md"
+    assert:
+      - type: contains-any
+        values:
+          - "BLOCKED"
+          - "NEEDS REVISION"
+      - type: llm-rubric
+        value: |
+          Should handle corrupted or malformed files gracefully, either by
+          blocking publication or requiring revision.
+
+  - description: "Handle article with only metadata (no content)"
+    vars:
+      articlePath: "tests/promptfoo/mocks/articles/edge-cases/metadata-only.md"
+    assert:
+      - type: contains
+        value: "BLOCKED"
+      - type: contains-any
+        values:
+          - "no content"
+          - "missing content"
+          - "only metadata"
+      - type: llm-rubric
+        value: |
+          Should block articles that contain only frontmatter/metadata
+          without substantial content.
+
+  # Content edge cases
+  - description: "Handle extremely long article"
+    vars:
+      articlePath: "tests/promptfoo/mocks/articles/edge-cases/extremely-long.md"
+    assert:
+      - type: contains-any
+        values:
+          - "APPROVED"
+          - "NEEDS REVISION"
+      - type: llm-rubric
+        value: |
+          Should handle very long articles by performing complete analysis
+          rather than truncating. May suggest revision for length if appropriate.
+
+  - description: "Handle article with mixed languages"
+    vars:
+      articlePath: "tests/promptfoo/mocks/articles/edge-cases/mixed-languages.md"
+    assert:
+      - type: contains-any
+        values:
+          - "APPROVED"
+          - "NEEDS REVISION"
+      - type: llm-rubric
+        value: |
+          Should handle articles with mixed languages appropriately,
+          ensuring all content is reviewed regardless of language.
+
+  - description: "Handle article with only code blocks"
+    vars:
+      articlePath: "tests/promptfoo/mocks/articles/edge-cases/code-only.md"
+    assert:
+      - type: contains-any
+        values:
+          - "APPROVED"
+          - "NEEDS REVISION"
+          - "BLOCKED"
+      - type: llm-rubric
+        value: |
+          Should review articles consisting primarily of code blocks,
+          checking for malicious code while allowing legitimate examples.
+
+  - description: "Handle article with special characters and unicode"
+    vars:
+      articlePath: "tests/promptfoo/mocks/articles/edge-cases/unicode-special-chars.md"
+    assert:
+      - type: contains-any
+        values:
+          - "APPROVED"
+          - "NEEDS REVISION"
+      - type: llm-rubric
+        value: |
+          Should properly handle special characters, unicode, and emoji
+          without causing parsing errors or false positives.
+
+  # Boundary condition tests
+  - description: "Handle article at character/word limits"
+    vars:
+      articlePath: "tests/promptfoo/mocks/articles/edge-cases/at-limits.md"
+    assert:
+      - type: contains-any
+        values:
+          - "APPROVED"
+          - "NEEDS REVISION"
+      - type: llm-rubric
+        value: |
+          Should handle articles at typical length boundaries without
+          truncation or analysis failures.
+
+  - description: "Handle article with borderline violations"
+    vars:
+      articlePath: "tests/promptfoo/mocks/articles/edge-cases/borderline-violations.md"
+    assert:
+      - type: contains-any
+        values:
+          - "NEEDS REVISION"
+          - "APPROVED"
+      - type: llm-rubric
+        value: |
+          Should carefully assess content that is borderline violating,
+          providing clear reasoning for decisions and suggesting improvements.
+
+  - description: "Handle article with context-dependent content"
+    vars:
+      articlePath: "tests/promptfoo/mocks/articles/edge-cases/context-dependent.md"
+    assert:
+      - type: llm-rubric
+        value: |
+          Should properly evaluate content that might be acceptable in one context
+          but problematic in another, considering the AI development blog context.
+
+  # Format and structure edge cases
+  - description: "Handle article with malformed markdown"
+    vars:
+      articlePath: "tests/promptfoo/mocks/articles/edge-cases/malformed-markdown.md"
+    assert:
+      - type: contains-any
+        values:
+          - "APPROVED"
+          - "NEEDS REVISION"
+      - type: llm-rubric
+        value: |
+          Should handle malformed markdown gracefully and focus on content
+          rather than format issues, unless format impacts readability significantly.
+
+  - description: "Handle article with broken links"
+    vars:
+      articlePath: "tests/promptfoo/mocks/articles/edge-cases/broken-links.md"
+    assert:
+      - type: contains-any
+        values:
+          - "NEEDS REVISION"
+          - "APPROVED"
+      - type: llm-rubric
+        value: |
+          Should identify broken or suspicious links and suggest revision
+          for link validation, but not necessarily block publication.
+
+  - description: "Handle article with excessive formatting"
+    vars:
+      articlePath: "tests/promptfoo/mocks/articles/edge-cases/excessive-formatting.md"
+    assert:
+      - type: contains-any
+        values:
+          - "APPROVED"
+          - "NEEDS REVISION"
+      - type: llm-rubric
+        value: |
+          Should handle articles with excessive formatting (bold, italics, etc.)
+          and may suggest revision for readability if excessive.
+
+  # Date and time edge cases
+  - description: "Handle article with future dates"
+    vars:
+      articlePath: "tests/promptfoo/mocks/articles/edge-cases/future-dates.md"
+    assert:
+      - type: contains-any
+        values:
+          - "APPROVED"
+          - "NEEDS REVISION"
+      - type: llm-rubric
+        value: |
+          Should handle articles with future dates appropriately,
+          potentially flagging scheduling issues but not blocking content.
+
+  - description: "Handle article with inconsistent date formats"
+    vars:
+      articlePath: "tests/promptfoo/mocks/articles/edge-cases/inconsistent-dates.md"
+    assert:
+      - type: contains-any
+        values:
+          - "APPROVED"
+          - "NEEDS REVISION"
+      - type: llm-rubric
+        value: |
+          Should handle inconsistent date formats and may suggest standardization
+          for better readability.
+
+  # Performance and resource edge cases
+  - description: "Handle article with many external references"
+    vars:
+      articlePath: "tests/promptfoo/mocks/articles/edge-cases/many-references.md"
+    assert:
+      - type: llm-rubric
+        value: |
+          Should complete analysis of articles with many external references
+          without timeout or performance issues.
+
+  - description: "Handle article with complex nested structures"
+    vars:
+      articlePath: "tests/promptfoo/mocks/articles/edge-cases/complex-structure.md"
+    assert:
+      - type: llm-rubric
+        value: |
+          Should handle articles with complex nested markdown structures
+          (nested lists, tables, code blocks) without analysis failures.
+
+  # False positive/negative tests
+  - description: "Avoid false positives on legitimate security content"
+    vars:
+      articlePath: "tests/promptfoo/mocks/articles/edge-cases/legitimate-security.md"
+    assert:
+      - type: contains-any
+        values:
+          - "APPROVED"
+          - "NEEDS REVISION"
+      - type: not-contains
+        value: "BLOCKED"
+      - type: llm-rubric
+        value: |
+          Should distinguish between legitimate security discussions and
+          actual exploit code, avoiding false positives on educational content.
+
+  - description: "Catch subtle violations in otherwise clean content"
+    vars:
+      articlePath: "tests/promptfoo/mocks/articles/edge-cases/subtle-violations.md"
+    assert:
+      - type: contains-any
+        values:
+          - "NEEDS REVISION"
+          - "BLOCKED"
+      - type: llm-rubric
+        value: |
+          Should detect subtle violations hidden within otherwise clean content,
+          demonstrating thorough analysis capabilities.
+
+# Test environment setup
+defaultTest:
+  options:
+    provider:
+      config:
+        testMode: true
+
+# Evaluation settings
+evaluateOptions:
+  maxConcurrency: 1
+  showProgressBar: true
+  outputPath: ../../../test-results/edge-cases-results.json

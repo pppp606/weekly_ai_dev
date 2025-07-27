@@ -1,0 +1,135 @@
+# Test configuration for article_guardrail_review command
+description: "Comprehensive tests for the article guardrail review command with custom evaluators"
+
+providers:
+  - id: file://providers/article-guardrail-provider.ts
+    config:
+      testMode: true
+      model: claude-3-5-sonnet-20241022
+      temperature: 0.3
+      max_tokens: 4096
+
+prompts:
+  - file: ../.claude/commands/article_guardrail_review.md
+
+tests:
+  - description: "Review a clean article without violations"
+    vars:
+      articlePath: "tests/promptfoo/mocks/articles/weekly-ai-digest-20250721.md"
+    assert:
+      - type: contains
+        value: "APPROVED"
+      - type: not-contains
+        value: "BLOCKED"
+      - type: not-contains
+        value: "NEEDS REVISION"
+      - type: contains
+        value: "Guardrail Review Results"
+      # Custom evaluators
+      - type: javascript
+        value: file://evaluators/article-approval-evaluator.ts
+      - type: javascript
+        value: file://evaluators/format-compliance-evaluator.ts
+      - type: javascript
+        value: file://evaluators/response-quality-evaluator.ts
+
+  - description: "Review an article with multiple guardrail violations"
+    vars:
+      articlePath: "tests/promptfoo/mocks/articles/weekly-ai-digest-20250721-guardrail-fail.md"
+    assert:
+      - type: contains
+        value: "BLOCKED"
+      - type: contains
+        value: "API keys"
+      - type: contains
+        value: "personal information"
+      - type: contains
+        value: "exploit code"
+      - type: contains
+        value: "political bias"
+      - type: contains
+        value: "medical advice"
+      - type: llm-rubric
+        value: |
+          The review should identify at least 5 different types of guardrail violations:
+          1. Confidential information (API keys, tokens)
+          2. Security concerns (exploit code, SQL injection)
+          3. Personal information (names, emails, phone numbers)
+          4. Political bias
+          5. Medical advice without proper disclaimers
+      # Custom evaluators
+      - type: javascript
+        value: file://evaluators/article-approval-evaluator.ts
+      - type: javascript
+        value: file://evaluators/violation-detection-evaluator.ts
+      - type: javascript
+        value: file://evaluators/format-compliance-evaluator.ts
+      - type: javascript
+        value: file://evaluators/response-quality-evaluator.ts
+
+  - description: "Review an empty article file"
+    vars:
+      articlePath: "tests/promptfoo/mocks/articles/weekly-ai-digest-20250721-empty.md"
+    assert:
+      - type: contains
+        value: "BLOCKED"
+      - type: contains-any
+        values:
+          - "empty"
+          - "no content"
+          - "missing content"
+      # Custom evaluators
+      - type: javascript
+        value: file://evaluators/article-approval-evaluator.ts
+      - type: javascript
+        value: file://evaluators/format-compliance-evaluator.ts
+
+  - description: "Review with missing article file"
+    vars:
+      articlePath: "tests/promptfoo/mocks/articles/non-existent-file.md"
+    assert:
+      - type: contains-any
+        values:
+          - "not found"
+          - "does not exist"
+          - "cannot read"
+          - "failed to read"
+      # Custom evaluators
+      - type: javascript
+        value: file://evaluators/format-compliance-evaluator.ts
+      - type: javascript
+        value: file://evaluators/response-quality-evaluator.ts
+
+  - description: "Verify proper formatting of review output"
+    vars:
+      articlePath: "tests/promptfoo/mocks/articles/weekly-ai-digest-20250721.md"
+    assert:
+      - type: regex
+        value: "Status.*:(.*APPROVED|.*NEEDS REVISION|.*BLOCKED)"
+      - type: contains
+        value: "Summary"
+      - type: llm-rubric
+        value: |
+          The review output should follow the specified format:
+          - Contains "## Guardrail Review Results" header
+          - Has a "Status" field with one of: APPROVED, NEEDS REVISION, or BLOCKED
+          - Includes a "Summary" section
+          - If issues are found, lists them with line numbers/sections and suggested fixes
+      # Custom evaluators (format is the primary focus here)
+      - type: javascript
+        value: file://evaluators/format-compliance-evaluator.ts
+      - type: javascript
+        value: file://evaluators/response-quality-evaluator.ts
+
+# Test environment setup
+defaultTest:
+  options:
+    provider:
+      config:
+        testMode: true
+
+# Evaluation settings
+evaluateOptions:
+  maxConcurrency: 1
+  showProgressBar: true
+  outputPath: ../test-results/article-guardrail-review-results.json

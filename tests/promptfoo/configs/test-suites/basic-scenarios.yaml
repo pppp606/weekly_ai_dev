@@ -1,0 +1,114 @@
+# Basic Test Scenarios for Article Guardrail Review
+description: "Basic functional tests for article guardrail review command"
+
+providers:
+  - id: file://providers/claude-code-provider.ts
+    config:
+      mockMode: true
+
+tests:
+  # Basic approval scenarios
+  - description: "Review a standard clean article"
+    vars:
+      prompt: "./mocks/articles/weekly-ai-digest-20250721.md"
+    assert:
+      - type: contains
+        value: "APPROVED"
+      - type: not-contains
+        value: "BLOCKED"
+      - type: not-contains
+        value: "NEEDS REVISION"
+      - type: contains
+        value: "Guardrail Review Results"
+      - type: llm-rubric
+        value: |
+          The review should show APPROVED status for a clean article without any guardrail violations.
+          The output should follow the proper format with clear status indication.
+
+  # Output formatting tests
+  - description: "Verify proper review output structure"
+    vars:
+      articlePath: "tests/promptfoo/mocks/articles/weekly-ai-digest-20250721.md"
+    assert:
+      - type: regex
+        value: "##\\s*Guardrail Review Results"
+      - type: regex
+        value: "\\*\\*Status\\*\\*:\\s*(APPROVED|NEEDS REVISION|BLOCKED)"
+      - type: contains
+        value: "Summary"
+      - type: llm-rubric
+        value: |
+          The review output must strictly follow the specified format:
+          1. "## Guardrail Review Results" header
+          2. "**Status**: [STATUS]" field
+          3. "### Issues Found" section (if applicable)
+          4. "### Summary" section with brief assessment
+
+  # Content analysis depth tests
+  - description: "Thorough content analysis - technical accuracy"
+    vars:
+      articlePath: "tests/promptfoo/mocks/articles/weekly-ai-digest-20250721.md"
+    assert:
+      - type: llm-rubric
+        value: |
+          The review should demonstrate thorough analysis by:
+          1. Checking all sections of the article
+          2. Verifying technical accuracy of AI-related content
+          3. Ensuring proper attribution of sources
+          4. Confirming appropriate tone and language
+          5. Validating that all links and references are legitimate
+
+  # Edge case: minimal content
+  - description: "Review article with minimal content"
+    vars:
+      articlePath: "tests/promptfoo/mocks/articles/weekly-ai-digest-minimal.md"
+    assert:
+      - type: contains-any
+        values:
+          - "APPROVED"
+          - "NEEDS REVISION"
+      - type: llm-rubric
+        value: |
+          For articles with minimal but valid content, the review should either approve
+          or suggest revision for completeness, but not block entirely.
+
+  # Professional standards validation
+  - description: "Professional tone and accuracy verification"
+    vars:
+      articlePath: "tests/promptfoo/mocks/articles/weekly-ai-digest-20250721.md"
+    assert:
+      - type: llm-rubric
+        value: |
+          The review should verify professional standards:
+          1. No profanity or offensive language
+          2. No unverified claims or conspiracy theories
+          3. No sensationalized or clickbait content
+          4. Accurate representation of technical concepts
+          5. Proper fact-checking approach
+
+  # Source attribution check
+  - description: "Source attribution and copyright compliance"
+    vars:
+      articlePath: "tests/promptfoo/mocks/articles/weekly-ai-digest-20250721.md"
+    assert:
+      - type: llm-rubric
+        value: |
+          The review should ensure:
+          1. All sources are properly attributed
+          2. No copyright infringement concerns
+          3. Links to original sources are provided
+          4. No plagiarized content detected
+          5. Fair use principles are respected
+
+# Test environment setup
+defaultTest:
+  options:
+    provider:
+      config:
+        testMode: true
+
+# Evaluation settings
+evaluateOptions:
+  maxConcurrency: 1
+  showProgressBar: true
+  outputPath: ../../../test-results/basic-scenarios-results.json
