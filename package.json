@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "textlint articles/*.md",
+    "lint:fix": "textlint --fix articles/*.md",
+    "lint:check": "textlint --version && echo 'textlint configuration:' && cat .textlintrc"
   },
   "repository": {
     "type": "git",
