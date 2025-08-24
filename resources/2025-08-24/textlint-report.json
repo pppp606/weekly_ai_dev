@@ -1,0 +1,48 @@
+{
+  "result": [
+    {
+      "filePath": "/Users/takuto/Dev/weekly_ai_dev/articles/weekly_ai_20250824.md",
+      "messages": [
+        {
+          "ruleId": "@textlint-ja/ai-writing/ai-tech-writing-guideline",
+          "line": 1,
+          "column": 1,
+          "message": "【テクニカルライティング品質分析】この文書で2件の改善提案が見つかりました [内訳: 具体性: 2件]。",
+          "severity": "error"
+        },
+        {
+          "ruleId": "@textlint-ja/ai-writing/ai-tech-writing-guideline", 
+          "line": 51,
+          "column": 85,
+          "message": "【具体性】抽象的な評価表現が検出されました。",
+          "severity": "error"
+        },
+        {
+          "ruleId": "@textlint-ja/ai-writing/no-ai-hype-expressions",
+          "line": 99,
+          "column": 54,
+          "message": "「大幅に」という表現は誇張的である可能性があります。",
+          "severity": "error"
+        },
+        {
+          "ruleId": "@textlint-ja/ai-writing/no-ai-hype-expressions",
+          "line": 123,
+          "column": 23, 
+          "message": "「大幅に」という表現は誇張的である可能性があります。",
+          "severity": "error"
+        },
+        {
+          "ruleId": "@textlint-ja/ai-writing/no-ai-hype-expressions",
+          "line": 180,
+          "column": 57,
+          "message": "「大幅に」という表現は誇張的である可能性があります。",
+          "severity": "error"
+        }
+      ]
+    }
+  ],
+  "status": "completed",
+  "errorCount": 5,
+  "warningCount": 0,
+  "timestamp": "2025-08-24T00:00:00Z"
+}
