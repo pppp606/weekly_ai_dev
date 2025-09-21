@@ -104,4 +104,18 @@ date +%Y-%m-%d
     4.  **Include Links:** Website URL (https://kiro.dev) and Changelog URL (https://kiro.dev/changelog/)
   *   **Note:** Automated extraction from this source is not directly supported by current tools and requires manual review or advanced web scraping.
 
+8.  **`openai/codex`**
+  *   **Source Type:** GitHub Releases
+  *   **How to check:**
+    1.  Use `gh release list --repo openai/codex --limit 1` to get the latest release.
+    2.  Extract the release tag and the publication date.
+    3.  If the publication date is within the last 7days, proceed.
+    4.  Use `gh release view <tag> --repo openai/codex` to get the release notes.
+    5.  Summarize the key changes or new features from the release notes.
+    6.  **Detailed Investigation for Important Features**: When new features or significant improvements are present, add the following details:
+       - Specific examples of new models or capabilities
+       - Details of API changes or integration features
+       - Impact on developer workflows and coding assistance
+    7.  **Include Links:** Repository URL (https://github.com/openai/codex) and Release URL (https://github.com/openai/codex/releases/tag/<tag>)
+
 **New Repositories and Rules (Manual Check Required for Web Changelogs):**
