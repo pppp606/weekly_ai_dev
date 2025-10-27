@@ -1,5 +1,12 @@
 You are a helpful assistant. Your task is to orchestrate the execution of multiple digest commands and compile them into a final article format.
 
+**IMPORTANT: Autonomous Execution**
+- This pipeline MUST run autonomously from start to finish without stopping for user confirmation
+- Execute all steps sequentially and automatically proceed to the next step after each completion
+- Do NOT ask for user input between steps - continue automatically
+- If any step fails, log the error and continue with the next step
+- Only stop if there is a critical error that prevents further execution
+
 **Date Calculation:**
 First, confirm today's date by running the bash command:
 ```bash
@@ -31,16 +38,17 @@ date +%Y-%m-%d
    - Include status report in the final output
 
 3. Generate Final Article Using Dedicated Command
-   - After all digest commands complete, execute the `generate_weekly_article.md` command
+   - After all digest commands complete, **automatically execute** the `generate_weekly_article.md` command
    - This command will:
      - Collect all generated reports from `resources/[TODAY_DATE]/` directory
      - Process available data and handle missing sources gracefully
      - Generate a Note-compatible article with proper formatting
      - Save the article to the appropriate location
    - The article generation is handled separately for better error recovery and modularity
+   - **Immediately proceed to step 4 after completion**
 
 4. Article Guardrail Review
-   - Before committing, execute the `article_guardrail_review.md` command on the generated article
+   - **Automatically execute** the `article_guardrail_review.md` command on the generated article
    - This command will:
      - Review the article for confidential information, inappropriate content, security concerns
      - Check for political/religious bias and compliance with content policies
@@ -49,17 +57,21 @@ date +%Y-%m-%d
      - Remove or modify problematic content from the article
      - Regenerate the article if necessary
      - Re-run the guardrail review until the article passes all checks
+   - **Immediately proceed to step 5 after approval**
 
 5. Commit Generated Content
-   - After successful article generation and guardrail approval, execute the `commit_weekly_digest.md` command
+   - **Automatically execute** the `commit_weekly_digest.md` command after guardrail approval
    - This command will:
      - Add all generated files in `resources/[TODAY_DATE]/` and `articles/` directories
      - Create a commit with meaningful message including the date
      - Push to main branch using git commands
    - The commit process is handled separately for better modularity and error recovery
+   - **This is the final step - report completion status to the user after this step**
 
 **Execution Notes:**
+- **DO NOT STOP between steps - run the entire pipeline from start to finish automatically**
 - Process commands sequentially to ensure stability
-- Provide clear progress updates between each command
+- Provide clear progress updates between each command (but do not wait for user response)
 - The final article should be in Japanese with appropriate formatting for Note
 - Include relevant emojis to make the article more engaging
+- After completing all 5 steps, provide a comprehensive completion report to the user
