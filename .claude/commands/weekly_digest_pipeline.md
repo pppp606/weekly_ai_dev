@@ -26,10 +26,11 @@ date +%Y-%m-%d
    - **Execution Order**:
      1. vibecoding_release_digest.md
      2. ai_trending_repositories_digest.md
-     3. ai_news_digest.md
-     4. ai_events_digest.md
-     5. hacker_news_reddit_digest.md
-     6. ai_tec_blog_digest.md
+     3. ai_trending_papers_digest.md
+     4. ai_news_digest.md
+     5. ai_events_digest.md
+     6. hacker_news_reddit_digest.md
+     7. ai_tec_blog_digest.md
 
 2. Error Handling
    - If a digest command fails, log the error with details
