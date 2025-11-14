@@ -11,17 +11,20 @@ Collect the latest trending AI research papers from Hugging Face, extract each a
 - Only stop if there is a critical error that prevents further execution
 
 **Date Calculation:**
-First, confirm today's date by running the bash command:
+First, confirm today's date and week number by running the bash commands:
 ```bash
 date +%Y-%m-%d
+date +%Y-W%V
 ```
 
-Use this date for the output directory path.
+Use the date for the output directory path and the week number for the Hugging Face URL.
 
 **Steps:**
 
 1. **Fetch Trending Papers from Hugging Face**
-   - Open https://huggingface.co/papers using MCP Playwright tool (mcp__playwright__)
+   - Calculate the week number using the date command: `date +%Y-W%V` (e.g., 2025-W46)
+   - Open https://huggingface.co/papers/week/{WEEK_NUMBER} using MCP Playwright tool (mcp__playwright__)
+     - Example: https://huggingface.co/papers/week/2025-W46
    - Navigate to the page and wait for content to load
    - Extract the top 3 trending paper entries with the following information:
      - Paper title
