@@ -23,7 +23,7 @@ Use this date for the output directory path.
 1. **Fetch Trending Papers from Hugging Face**
    - Open https://huggingface.co/papers using MCP Playwright tool (mcp__playwright__)
    - Navigate to the page and wait for content to load
-   - Extract the top 10 trending paper entries with the following information:
+   - Extract the top 3 trending paper entries with the following information:
      - Paper title
      - Authors list
      - arXiv URL (if available)
@@ -33,8 +33,12 @@ Use this date for the output directory path.
    - For each paper with an arXiv URL:
      - Visit the arXiv page
      - Extract the abstract text (typically in blockquote.abstract or similar element)
-     - Generate a concise Japanese summary of the abstract (maximum 3 lines)
-     - Include key contributions and findings
+     - Generate a detailed Japanese summary of the abstract (5-8 lines recommended)
+     - Include the following in the summary:
+       - Background and motivation of the research
+       - Key technical contributions and methodology
+       - Main results and performance metrics
+       - Significance and potential impact
 
 3. **Generate Markdown Output**
    - Create output in the following fixed format:
@@ -44,15 +48,18 @@ Use this date for the output directory path.
 
 1. **タイトル:** {title}
    **著者:** {authors}
-   **概要:** {japanese_summary}
+   **概要:** {detailed_japanese_summary}
    **arXiv:** {arxiv_url}
 
 2. **タイトル:** {title}
    **著者:** {authors}
-   **概要:** {japanese_summary}
+   **概要:** {detailed_japanese_summary}
    **arXiv:** {arxiv_url}
 
-... (continue for all papers)
+3. **タイトル:** {title}
+   **著者:** {authors}
+   **概要:** {detailed_japanese_summary}
+   **arXiv:** {arxiv_url}
 ```
 
 4. **Save Output**
@@ -62,7 +69,7 @@ Use this date for the output directory path.
 
 **Rules:**
 - Skip papers without arXiv links
-- Keep summaries concise (3 lines maximum per paper)
+- Provide detailed summaries (5-8 lines per paper) covering background, methodology, results, and impact
 - Use professional, technical Japanese language
 - Do not output anything other than the final Markdown content to the file
 - Handle errors gracefully (e.g., if abstract extraction fails, note it in the summary)
@@ -71,11 +78,11 @@ Use this date for the output directory path.
 **Error Handling:**
 - If Hugging Face page fails to load, retry once after 5 seconds
 - If arXiv page fails to load for a specific paper, skip that paper and continue
-- If fewer than 10 papers are found, process all available papers
+- If fewer than 3 papers are found, process all available papers
 - Log any errors but continue execution
 
 **Output Location:**
 `resources/[TODAY_DATE]/ai_trending_papers.md`
 
 **Expected Result:**
-A well-formatted Markdown file containing 5-10 trending AI papers with Japanese summaries, ready to be integrated into the weekly digest article.
+A well-formatted Markdown file containing the top 3 trending AI papers with detailed Japanese summaries (5-8 lines each), covering background, methodology, results, and impact. Ready to be integrated into the weekly digest article.
