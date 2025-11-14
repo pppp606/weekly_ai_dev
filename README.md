@@ -9,6 +9,7 @@
 - GitHub リリース・チェンジログ
 - AI関連ニュース
 - AI関連のトレンドリポジトリ
+- AI論文トレンド（Hugging Face週次トレンド）
 - AI開発イベント（Connpass）
 - Hacker News & Reddit のディスカッション
 - 日本のテックブログ（Zenn、Qiita、note）
@@ -60,6 +61,7 @@ npx textlint articles/weekly-ai-digest-YYYYMMDD.md  # 特定ファイル
 - `/vibecoding_release_digest` GitHubリリースとチェンジログの更新をチェック
 - `/ai_news_digest` 最新のAI関連ニュースと発表を収集
 - `/ai_trending_repositories_digest` GitHubのトレンドAI関連リポジトリを分析
+- `/ai_trending_papers_digest` Hugging Faceから週次トレンドAI論文トップ3を取得し、詳細な日本語要約を生成
 - `/ai_events_digest` Connpassで今後のAI開発イベントを検索
 - `/hacker_news_reddit_digest` HNとRedditのトレンドAI開発ディスカッションを収集
 - `/ai_tec_blog_digest` Zenn、Qiita、noteでAI開発記事を検索
