@@ -1,0 +1,1 @@
+[{"messages":[{"type":"lint","ruleId":"@textlint-ja/ai-writing/no-ai-list-formatting","message":"リストアイテムで強調（**）とコロン（:）の組み合わせは機械的な印象を与える可能性があります。より自然な表現を検討してください。","index":4703,"line":153,"column":1,"range":[4703,4781],"loc":{"start":{"line":153,"column":1},"end":{"line":153,"column":79}},"severity":2}],"filePath":"/Users/takuto/Dev/weekly_ai_dev/articles/weekly_ai_20251207.md"}]
