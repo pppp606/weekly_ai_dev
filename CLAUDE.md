@@ -6,95 +6,79 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a weekly AI development digest project that automatically collects information from various sources (GitHub releases, changelogs, AI news) and generates articles for Note publication.
 
-## Commands
+## Commands and Skills
 
-### Main Pipeline Commands
+### Main Pipeline Command
 ```bash
 # Execute the full digest pipeline
-# This will run all individual digest commands sequentially and generate the final article
+# This runs 7 digest skills in PARALLEL using Task agents, then generates the final article
 ```
 Located at: `.claude/commands/weekly_digest_pipeline.md`
 
-```bash
-# Generate weekly article from collected data
-# This will create the final article from existing data in resources/YYYY-MM-DD/
-```
-Located at: `.claude/commands/generate_weekly_article.md`
+### Individual Digest Skills (v1.1.0)
 
-### Individual Digest Commands
-```bash
-# Release information digest
-# Checks GitHub releases and changelogs for updates
-```
-Located at: `.claude/commands/vibecoding_release_digest.md`
+Skills are executed as isolated Task agents with their own context, enabling parallel execution and preventing context overflow.
 
-```bash
-# AI news digest
-# Collects recent AI-related news and announcements
-```
-Located at: `.claude/commands/ai_news_digest.md`
-
-```bash
-# AI trending repositories digest
-# Finds and analyzes trending AI-related repositories on GitHub
-```
-Located at: `.claude/commands/ai_trending_repositories_digest.md`
-
-```bash
-# AI events digest
-# Searches for upcoming AI development events on Connpass
-```
-Located at: `.claude/commands/ai_events_digest.md`
-
-```bash
-# Hacker News & Reddit digest
-# Collects trending AI development discussions from HN and Reddit
-```
-Located at: `.claude/commands/hacker_news_reddit_digest.md`
-
-```bash
-# Japanese tech blog digest
-# Searches for AI development articles on Zenn, Qiita, and note
-```
-Located at: `.claude/commands/ai_tec_blog_digest.md`
+| Skill | Description | Location |
+|-------|-------------|----------|
+| Release Digest | Checks GitHub releases and changelogs | `.claude/skills/vibecoding_release_digest.md` |
+| AI News | Collects recent AI-related news | `.claude/skills/ai_news_digest.md` |
+| Trending Repos | Analyzes trending AI repositories on GitHub | `.claude/skills/ai_trending_repositories_digest.md` |
+| Trending Papers | Collects trending AI papers from Hugging Face | `.claude/skills/ai_trending_papers_digest.md` |
+| AI Events | Searches upcoming AI events on Connpass | `.claude/skills/ai_events_digest.md` |
+| HN & Reddit | Collects trending discussions from HN/Reddit | `.claude/skills/hacker_news_reddit_digest.md` |
+| Tech Blogs | Searches AI articles on Zenn, Qiita, note | `.claude/skills/ai_tec_blog_digest.md` |
+| Article Generation | Creates final article from collected data | `.claude/skills/generate_weekly_article.md` |
+| Guardrail Review | Validates article quality with textlint | `.claude/skills/article_guardrail_review.md` |
 
 ## Project Structure
 
 ```
 ├── .claude/
-│   └── commands/           # Digest command definitions
-│       ├── weekly_digest_pipeline.md       # Main pipeline (sequential execution)
-│       ├── generate_weekly_article.md      # Article generation from collected data
+│   ├── commands/                    # Pipeline entry points
+│   │   └── weekly_digest_pipeline.md    # Main pipeline (parallel Task agents)
+│   └── skills/                      # Individual digest skills (v1.1.0)
 │       ├── vibecoding_release_digest.md
 │       ├── ai_news_digest.md
 │       ├── ai_trending_repositories_digest.md
+│       ├── ai_trending_papers_digest.md
 │       ├── ai_events_digest.md
 │       ├── hacker_news_reddit_digest.md
-│       └── ai_tec_blog_digest.md
+│       ├── ai_tec_blog_digest.md
+│       ├── generate_weekly_article.md
+│       └── article_guardrail_review.md
 ├── resources/
 │   └── YYYY-MM-DD/        # Daily collected information
 │       ├── release_information.md
 │       ├── ai_news_summary.md
 │       ├── trending_repositories.md
+│       ├── trending_papers.md
 │       ├── events.md
 │       ├── community_discussions.md
 │       └── tech_blog_articles.md
 └── articles/              # Final Note articles
-    └── weekly-ai-digest-YYYYMMDD.md
+    └── weekly_ai_YYYYMMDD.md
 ```
 
 ## Workflow
 
-1. **Information Collection**: Individual digest commands collect information from various sources
-2. **Data Aggregation**: Information is saved to `resources/YYYY-MM-DD/` directory
-3. **Article Generation**: Pipeline command creates final article in `articles/` directory
-4. **Quality Assurance**: Generated articles are automatically checked with textlint for Japanese AI writing guidelines
-5. **Publication**: Articles are formatted for Note publication with improved quality and consistency
+1. **Parallel Information Collection**: 7 digest skills run simultaneously as isolated Task agents
+2. **Result Collection**: Pipeline waits for all tasks to complete and collects results
+3. **Data Aggregation**: Information is saved to `resources/YYYY-MM-DD/` directory
+4. **Article Generation**: Creates final article in `articles/` directory
+5. **Quality Assurance**: Generated articles are automatically checked with textlint for Japanese AI writing guidelines
+6. **Publication**: Articles are formatted for Note publication with improved quality and consistency
+
+### Architecture Benefits (v1.1.0)
+
+- **Parallel Execution**: All 7 digest tasks run concurrently, reducing total execution time
+- **Context Isolation**: Each skill runs in its own Task agent context, preventing context overflow
+- **Improved Reliability**: Failed tasks don't affect other tasks; partial results can still be used
 
 ### Failure Recovery Options
 
-- **Complete Failure**: If pipeline fails completely, run individual digest commands manually
-- **Partial Failure**: Use `generate_weekly_article.md` to create article from existing data
+- **Complete Failure**: If pipeline fails completely, run individual skills manually via `/skill_name`
+- **Partial Failure**: Use `generate_weekly_article` skill to create article from existing data
 
 ## Quality Assurance with textlint
 
@@ -117,10 +101,12 @@ Generated articles are automatically validated during the pipeline execution, en
 
 ## Important Notes
 
-- All digest commands expect today's date as an argument
+- All digest skills expect today's date as an argument (e.g., `/vibecoding_release_digest 2025-12-28`)
+- Skills run as isolated Task agents with `run_in_background=true` for parallel execution
 - Generated articles are in Japanese and formatted for Note platform
-- The pipeline automatically handles command execution and error handling
+- The pipeline automatically handles task execution, result collection, and error handling
 - Articles include relevant emojis and proper formatting for engagement
+- Tech blog collection excludes "週刊AI駆動開発" articles to prevent self-reference
 
 ## Technical Constraints and Workarounds
 
@@ -130,10 +116,10 @@ Some websites (particularly Reddit, note.com, and potentially others) may block 
 1. **Identification**: If WebFetch returns errors like "403 Forbidden", "blocked", or similar bot-detection messages, or returns CSS/JavaScript code instead of content
 2. **Fallback Solution**: Use the available MCP Playwright tool instead of WebFetch
 3. **Implementation**: Replace WebFetch calls with appropriate Playwright navigation and scraping
-4. **Affected Commands**: This primarily affects:
-   - `hacker_news_reddit_digest.md` (Reddit access)
-   - `ai_tec_blog_digest.md` (note.com blocking, potential blog platform blocking)
-   - `ai_events_digest.md` (Connpass may have restrictions)
+4. **Affected Skills**: This primarily affects:
+   - `hacker_news_reddit_digest` (Reddit access)
+   - `ai_tec_blog_digest` (note.com blocking, potential blog platform blocking)
+   - `ai_events_digest` (Connpass may have restrictions)
 
 ### Playwright Usage Guidelines
 When WebFetch is blocked:
