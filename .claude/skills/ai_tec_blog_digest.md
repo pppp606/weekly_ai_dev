@@ -82,6 +82,11 @@ date +%Y-%m-%d
 3. Article for advanced techniques
 ```
 
+**Exclusion Rules:**
+- **MUST EXCLUDE** articles titled "週刊AI駆動開発" (Weekly AI-Driven Development) - these are our own digest articles and should not be included
+- Exclude any article from `zenn.dev/pppp303` that matches the weekly digest pattern
+- Exclude aggregation/digest articles that simply summarize other sources
+
 **Important:**
 - Prioritize articles with practical, actionable content
 - Include articles that show real implementation examples
@@ -89,4 +94,15 @@ date +%Y-%m-%d
 - **MUST include the direct URL/link in the title for each article**
 - If fewer than 3 relevant articles are found, include what's available without padding
 
-
+**Completion Output:**
+When finished, output exactly:
+```
+STATUS: SUCCESS
+FILE: resources/[TODAY_DATE]/tech_blog_articles.md
+ARTICLES_FOUND: [number of articles included]
+```
+Or if failed:
+```
+STATUS: FAILED
+ERROR: [error description]
+```

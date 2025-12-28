@@ -89,3 +89,16 @@ date +%Y-%m-%d
 - DeepMind Blog: https://deepmind.google/discover/blog/
 - Hugging Face Blog: https://huggingface.co/blog
 ```
+
+**Completion Output:**
+When finished, output exactly:
+```
+STATUS: SUCCESS
+FILE: resources/[TODAY_DATE]/ai_news_summary.md
+NEWS_ITEMS: [number of news items found]
+```
+Or if failed:
+```
+STATUS: FAILED
+ERROR: [error description]
+```

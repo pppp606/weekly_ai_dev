@@ -79,4 +79,16 @@ Search all URLs and compile a list of events scheduled for the next 7 days (star
 
 **Save to:**
 `resources/[TODAY_DATE]/events.md`
-Where `[TODAY_DATE]` is today's date (generation date).
+
+**Completion Output:**
+When finished, output exactly:
+```
+STATUS: SUCCESS
+FILE: resources/[TODAY_DATE]/events.md
+EVENTS_FOUND: [number of events found]
+```
+Or if failed:
+```
+STATUS: FAILED
+ERROR: [error description]
+```

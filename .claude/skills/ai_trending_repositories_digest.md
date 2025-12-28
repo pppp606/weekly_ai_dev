@@ -65,23 +65,18 @@ If no such repository meets the criteria AND hasn't been featured before, **do n
 - Don't include installation instructions or basic code examples
 - Explain the significance in terms of current trends and developer needs
 
-**Example Output Structure:**
-```markdown
-# Trending AI Development Repositories - [TODAY_DATE]
-
-## [Repository Name](https://github.com/user/repo)
-
-### 概要
-[Natural Japanese description of what this tool does and why it matters]
-
-### 主な機能
-- Feature 1
-- Feature 2
-- Feature 3
-
-### 注目される理由
-[Natural explanation of why this is trending now, written in conversational Japanese]
-```
-
 **File Output:**
 Save the result to `resources/[TODAY_DATE]/trending_repositories.md`. Create the date directory if it doesn't exist.
+
+**Completion Output:**
+When finished, output exactly:
+```
+STATUS: SUCCESS
+FILE: resources/[TODAY_DATE]/trending_repositories.md
+REPOS_FOUND: [number of repositories featured, or 0 if none]
+```
+Or if failed:
+```
+STATUS: FAILED
+ERROR: [error description]
+```

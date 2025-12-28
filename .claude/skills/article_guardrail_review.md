@@ -8,7 +8,7 @@ date +%Y-%m-%d
 ```
 
 ## Target File
-Review the article at: `articles/weekly-ai-digest-{YYYYMMDD}.md` where YYYYMMDD is today's date in the format returned by the date command above.
+Review the article at: `articles/weekly_ai_YYYYMMDD.md` where YYYYMMDD is today's date in the compact format.
 
 ## Review Checklist
 
@@ -65,9 +65,9 @@ Please carefully review the article at the specified path and check for the foll
    - Describe the issue clearly
    - Suggest appropriate corrections
 4. Provide a summary of your review with one of these outcomes:
-   - ✅ **APPROVED**: Article is ready for publication
-   - ⚠️ **NEEDS REVISION**: Minor issues found that need correction
-   - ❌ **BLOCKED**: Major issues that require significant revision
+   - APPROVED: Article is ready for publication
+   - NEEDS REVISION: Minor issues found that need correction
+   - BLOCKED: Major issues that require significant revision
 
 ## Output Format
 
@@ -88,4 +88,12 @@ After reviewing, provide your assessment in this format:
 [Brief summary of the review outcome and any recommendations]
 ```
 
-Remember: The goal is to ensure the content is safe, appropriate, and valuable for the Note.com audience while maintaining the informative nature of the AI development digest.
+Remember: The goal is to ensure the content is safe, appropriate, and valuable for the Zenn audience while maintaining the informative nature of the AI development digest.
+
+**Completion Output:**
+When finished, output exactly:
+```
+STATUS: [APPROVED/NEEDS_REVISION/BLOCKED]
+FILE: articles/weekly_ai_YYYYMMDD.md
+ISSUES_FOUND: [number of issues, or 0 if approved]
+```

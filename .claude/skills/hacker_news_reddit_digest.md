@@ -69,7 +69,7 @@ date +%Y-%m-%d
 - **開発者への示唆**: 日本の開発者が知っておくべきポイント
 
 ### [タイトル](URL)
-- **出典**: Hacker News / Reddit (r/サブレディット名) 
+- **出典**: Hacker News / Reddit (r/サブレディット名)
 - **注目ポイント**: なぜこのトピックが話題になっているか
 - **技術的内容**: 具体的な技術や手法の説明
 - **開発者への示唆**: 日本の開発者が知っておくべきポイント
@@ -87,3 +87,16 @@ date +%Y-%m-%d
 - Group similar discussions across platforms for better readability
 - **MUST include the direct URL/link in the title for each topic**
 - If a source has no relevant technical content, skip it rather than including filler
+
+**Completion Output:**
+When finished, output exactly:
+```
+STATUS: SUCCESS
+FILE: resources/[TODAY_DATE]/community_discussions.md
+TOPICS_FOUND: [number of topics included]
+```
+Or if failed:
+```
+STATUS: FAILED
+ERROR: [error description]
+```

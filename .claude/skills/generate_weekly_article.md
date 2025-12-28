@@ -50,12 +50,7 @@ date +%Y%m%d
      - **CRITICAL**: Always use the EXACT URLs from the source files (release_information.md, ai_news_summary.md, community_discussions.md, tech_blog_articles.md, events.md, trending_repositories.md)
      - **NEVER generate, modify, or create placeholder URLs** - only use URLs that actually exist in the resource files
      - Format: Use the exact format and URLs as they appear in the source files
-     - **MANDATORY**: Include ALL relevant URLs exactly as they are written in the source files:
-       - AI関連ニュース: Copy URLs exactly from ai_news_summary.md
-       - テックブログ: Copy URLs exactly from tech_blog_articles.md
-       - 海外コミュニティ動向: Copy URLs exactly from community_discussions.md
-       - 今週のAI開発イベント: Copy URLs exactly from events.md
-       - 注目のAI開発リポジトリ: Copy URLs exactly from trending_repositories.md
+     - **MANDATORY**: Include ALL relevant URLs exactly as they are written in the source files
      - If a URL doesn't exist in the source file, do not include a link
      - Maintain source attribution with proper links exactly as provided
    - Zenn: Since Zenn uses the title from frontmatter, do not include h1 (#) in the article body
@@ -143,3 +138,17 @@ date +%Y%m%d
 - **CRITICAL**: Never include sections with "No updates", "No events found", or similar empty content - completely exclude these sections
 - Focus on quality over quantity - better to have fewer well-curated sections than many sparse ones
 - textlint will automatically fix common issues like inconsistent punctuation and spacing
+
+**Completion Output:**
+When finished, output exactly:
+```
+STATUS: SUCCESS
+FILE: articles/weekly_ai_YYYYMMDD.md
+SECTIONS_INCLUDED: [list of sections that had content]
+SECTIONS_SKIPPED: [list of sections that were empty or missing]
+```
+Or if failed:
+```
+STATUS: FAILED
+ERROR: [error description]
+```

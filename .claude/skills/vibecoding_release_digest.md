@@ -70,6 +70,34 @@ date +%Y-%m-%d
        - Impact on developer experience
     7.  **Include Links:** Repository URL (https://github.com/cline/cline) and Release URL (https://github.com/cline/cline/releases/tag/<tag>)
 
+6.  **`kiro`**
+  *   **Source Type:** Web Changelog
+  *   **How to check:**
+    1.  Manually visit `https://kiro.dev/changelog/`.
+    2.  Identify the latest release and its date.
+    3.  If the release date is within the last 7days, summarize the key changes.
+    4.  **Include Links:** Website URL (https://kiro.dev) and Changelog URL (https://kiro.dev/changelog/)
+
+7.  **`openai/codex`**
+  *   **Source Type:** GitHub Releases
+  *   **How to check:**
+    1.  Use `gh release list --repo openai/codex --limit 1` to get the latest release.
+    2.  Extract the release tag and the publication date.
+    3.  If the publication date is within the last 7days, proceed.
+    4.  Use `gh release view <tag> --repo openai/codex` to get the release notes.
+    5.  Summarize the key changes or new features from the release notes.
+    6.  **Include Links:** Repository URL (https://github.com/openai/codex) and Release URL (https://github.com/openai/codex/releases/tag/<tag>)
+
+8.  **`github/copilot-cli`**
+  *   **Source Type:** GitHub Releases
+  *   **How to check:**
+    1.  Use `gh release list --repo github/copilot-cli --limit 1` to get the latest release.
+    2.  Extract the release tag (e.g., `v0.0.351`) and the publication date.
+    3.  If the publication date is within the last 7days, proceed.
+    4.  Use `gh release view <tag> --repo github/copilot-cli` to get the release notes.
+    5.  Summarize the key changes or new features from the release notes.
+    6.  **Include Links:** Repository URL (https://github.com/github/copilot-cli) and Release URL (https://github.com/github/copilot-cli/releases/tag/<tag>)
+
 **Execution Steps:**
 
 1.  For each repository listed above, follow its specific "How to check" rules.
@@ -84,44 +112,17 @@ date +%Y-%m-%d
 6.  Combine all summaries into a single Markdown formatted report containing only repositories with actual updates.
 7.  Save the final report to `resources/[TODAY_DATE]/release_information.md`. Create the date directory if it doesn't exist.
 
-**Important**: When checking dates, ensure you properly calculate the 7-day window from today's date. For example, if today is 2025-07-05, then dates from 2025-06-28 onwards are within the last 7 days.
+**Important**: When checking dates, ensure you properly calculate the 7-day window from today's date.
 
-7.  **`kiro`**
-  *   **Source Type:** Web Changelog
-  *   **How to check:**
-    1.  Manually visit `https://kiro.dev/changelog/`.
-    2.  Identify the latest release and its date.
-    3.  If the release date is within the last 7days, summarize the key changes.
-    4.  **Include Links:** Website URL (https://kiro.dev) and Changelog URL (https://kiro.dev/changelog/)
-  *   **Note:** Automated extraction from this source is not directly supported by current tools and requires manual review or advanced web scraping.
-
-8.  **`openai/codex`**
-  *   **Source Type:** GitHub Releases
-  *   **How to check:**
-    1.  Use `gh release list --repo openai/codex --limit 1` to get the latest release.
-    2.  Extract the release tag and the publication date.
-    3.  If the publication date is within the last 7days, proceed.
-    4.  Use `gh release view <tag> --repo openai/codex` to get the release notes.
-    5.  Summarize the key changes or new features from the release notes.
-    6.  **Detailed Investigation for Important Features**: When new features or significant improvements are present, add the following details:
-       - Specific examples of new models or capabilities
-       - Details of API changes or integration features
-       - Impact on developer workflows and coding assistance
-    7.  **Include Links:** Repository URL (https://github.com/openai/codex) and Release URL (https://github.com/openai/codex/releases/tag/<tag>)
-
-9.  **`github/copilot-cli`**
-  *   **Source Type:** GitHub Releases
-  *   **How to check:**
-    1.  Use `gh release list --repo github/copilot-cli --limit 1` to get the latest release.
-    2.  Extract the release tag (e.g., `v0.0.351`) and the publication date.
-    3.  If the publication date is within the last 7days, proceed.
-    4.  Use `gh release view <tag> --repo github/copilot-cli` to get the release notes.
-    5.  Summarize the key changes or new features from the release notes.
-    6.  **Detailed Investigation for Important Features**: When new features or significant improvements are present, add the following details:
-       - Specific examples of new CLI commands or capabilities
-       - Details of integration features with terminal workflows
-       - Impact on developer productivity and command-line workflows
-       - Path detection and permission handling improvements
-    7.  **Include Links:** Repository URL (https://github.com/github/copilot-cli) and Release URL (https://github.com/github/copilot-cli/releases/tag/<tag>)
-
-**New Repositories and Rules (Manual Check Required for Web Changelogs):**
+**Completion Output:**
+When finished, output exactly:
+```
+STATUS: SUCCESS
+FILE: resources/[TODAY_DATE]/release_information.md
+RELEASES_FOUND: [number of repositories with updates]
+```
+Or if failed:
+```
+STATUS: FAILED
+ERROR: [error description]
+```

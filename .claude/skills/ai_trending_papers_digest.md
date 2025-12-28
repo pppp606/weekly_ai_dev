@@ -47,7 +47,7 @@ Use the date for the output directory path and the week number for the Hugging F
    - Create output in the following fixed format:
 
 ```markdown
-## 🧠 今週のAI論文トレンド
+## 今週のAI論文トレンド
 
 1. **タイトル:** {title}
    **著者:** {authors}
@@ -87,5 +87,15 @@ Use the date for the output directory path and the week number for the Hugging F
 **Output Location:**
 `resources/[TODAY_DATE]/ai_trending_papers.md`
 
-**Expected Result:**
-A well-formatted Markdown file containing the top 3 trending AI papers with detailed Japanese summaries (5-8 lines each), covering background, methodology, results, and impact. Ready to be integrated into the weekly digest article.
+**Completion Output:**
+When finished, output exactly:
+```
+STATUS: SUCCESS
+FILE: resources/[TODAY_DATE]/ai_trending_papers.md
+PAPERS_FOUND: [number of papers processed]
+```
+Or if failed:
+```
+STATUS: FAILED
+ERROR: [error description]
+```
