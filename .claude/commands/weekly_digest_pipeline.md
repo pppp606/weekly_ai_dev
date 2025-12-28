@@ -1,78 +1,175 @@
-You are a helpful assistant. Your task is to orchestrate the execution of multiple digest commands and compile them into a final article format.
+You are a helpful assistant executing a fully autonomous pipeline using Task agents.
 
-**IMPORTANT: Autonomous Execution**
-- This pipeline MUST run autonomously from start to finish without stopping for user confirmation
-- Execute all steps sequentially and automatically proceed to the next step after each completion
-- Do NOT ask for user input between steps - continue automatically
-- If any step fails, log the error and continue with the next step
-- Only stop if there is a critical error that prevents further execution
+# CRITICAL EXECUTION RULES - READ FIRST
 
-**Date Calculation:**
-First, confirm today's date by running the bash command:
+**ABSOLUTE REQUIREMENTS:**
+1. **NEVER STOP** for user confirmation, questions, or input at any point
+2. **NEVER USE AskUserQuestion** tool during this pipeline
+3. **AUTOMATICALLY PROCEED** to the next step immediately after each step completes
+4. **LOG ERRORS AND CONTINUE** - if any step fails, record the error and move to the next step
+5. **RUN TO COMPLETION** - only the final completion report should be shown to the user
+
+**IF YOU FEEL LIKE STOPPING:** DO NOT STOP. Continue to the next step immediately.
+
+# Setup (Do Once at Start)
+
+Run this single command to get today's date and store it:
 ```bash
-date +%Y-%m-%d
+TODAY=$(date +%Y-%m-%d) && echo "TODAY=$TODAY"
 ```
 
-# Pipeline Steps
+Use this date value ($TODAY) for all subsequent steps. Do NOT run date commands again.
 
-1. Execute Individual Digest Commands Sequentially (Use Task Tool)
-   - Look for all `.md` files in `.claude/commands/` directory that match the pattern `*_digest.md` (excluding this pipeline file)
-   - Execute digest commands **one by one** for better stability and error handling
-   - Each command will generate output in `resources/[TODAY_DATE]/` directory
-   - **Sequential Execution Benefits**:
-     - Avoids API rate limiting issues
-     - Easier error tracking and recovery
-     - More predictable resource usage
-   - **Execution Order**:
-     1. vibecoding_release_digest.md
-     2. ai_trending_repositories_digest.md
-     3. ai_trending_papers_digest.md
-     4. ai_news_digest.md
-     5. ai_events_digest.md
-     6. hacker_news_reddit_digest.md
-     7. ai_tec_blog_digest.md
+# Pipeline Execution Steps
 
-2. Error Handling
-   - If a digest command fails, log the error with details
-   - Continue with the next command
-   - Keep track of which commands succeeded/failed
-   - Include status report in the final output
+## STEP 1: Execute Digest Tasks in PARALLEL
 
-3. Generate Final Article Using Dedicated Command
-   - After all digest commands complete, **automatically execute** the `generate_weekly_article.md` command
-   - This command will:
-     - Collect all generated reports from `resources/[TODAY_DATE]/` directory
-     - Process available data and handle missing sources gracefully
-     - Generate a Note-compatible article with proper formatting
-     - Save the article to the appropriate location
-   - The article generation is handled separately for better error recovery and modularity
-   - **Immediately proceed to step 4 after completion**
+Use the Task tool to launch ALL 7 digest tasks simultaneously with `run_in_background=true`.
 
-4. Article Guardrail Review
-   - **Automatically execute** the `article_guardrail_review.md` command on the generated article
-   - This command will:
-     - Review the article for confidential information, inappropriate content, security concerns
-     - Check for political/religious bias and compliance with content policies
-     - Identify any problematic content that needs to be removed
-   - If issues are found:
-     - Remove or modify problematic content from the article
-     - Regenerate the article if necessary
-     - Re-run the guardrail review until the article passes all checks
-   - **Immediately proceed to step 5 after approval**
+**IMPORTANT:** Send a SINGLE message with ALL 7 Task tool calls to run them in parallel.
 
-5. Commit Generated Content
-   - **Automatically execute** the `commit_weekly_digest.md` command after guardrail approval
-   - This command will:
-     - Add all generated files in `resources/[TODAY_DATE]/` and `articles/` directories
-     - Create a commit with meaningful message including the date
-     - Push to main branch using git commands
-   - The commit process is handled separately for better modularity and error recovery
-   - **This is the final step - report completion status to the user after this step**
+Launch these tasks in parallel:
 
-**Execution Notes:**
-- **DO NOT STOP between steps - run the entire pipeline from start to finish automatically**
-- Process commands sequentially to ensure stability
-- Provide clear progress updates between each command (but do not wait for user response)
-- The final article should be in Japanese with appropriate formatting for Note
-- Include relevant emojis to make the article more engaging
-- After completing all 5 steps, provide a comprehensive completion report to the user
+1. **vibecoding_release_digest**
+   - Read `.claude/skills/vibecoding_release_digest.md` and use its content as the prompt
+   - subagent_type: "general-purpose"
+   - run_in_background: true
+
+2. **ai_trending_repositories_digest**
+   - Read `.claude/skills/ai_trending_repositories_digest.md` and use its content as the prompt
+   - subagent_type: "general-purpose"
+   - run_in_background: true
+
+3. **ai_trending_papers_digest**
+   - Read `.claude/skills/ai_trending_papers_digest.md` and use its content as the prompt
+   - subagent_type: "general-purpose"
+   - run_in_background: true
+
+4. **ai_news_digest**
+   - Read `.claude/skills/ai_news_digest.md` and use its content as the prompt
+   - subagent_type: "general-purpose"
+   - run_in_background: true
+
+5. **ai_events_digest**
+   - Read `.claude/skills/ai_events_digest.md` and use its content as the prompt
+   - subagent_type: "general-purpose"
+   - run_in_background: true
+
+6. **hacker_news_reddit_digest**
+   - Read `.claude/skills/hacker_news_reddit_digest.md` and use its content as the prompt
+   - subagent_type: "general-purpose"
+   - run_in_background: true
+
+7. **ai_tec_blog_digest**
+   - Read `.claude/skills/ai_tec_blog_digest.md` and use its content as the prompt
+   - subagent_type: "general-purpose"
+   - run_in_background: true
+
+## STEP 2: Collect Results from All Tasks
+
+Use TaskOutput to collect results from each background task:
+
+```
+For each task_id from Step 1:
+  - TaskOutput(task_id, block=true)
+  - Parse the STATUS from the output
+  - Record success/failure
+```
+
+Track results:
+- SUCCESS: [list of succeeded tasks with file paths]
+- FAILED: [list of failed tasks with brief error]
+
+**Error Handling:** If a task fails, log "FAILED: [task name] - [error]" and continue collecting other results.
+
+**AFTER ALL 7 RESULTS COLLECTED → IMMEDIATELY GO TO STEP 3**
+
+## STEP 3: Generate Final Article
+
+Use the Task tool to run the article generation:
+
+```
+Task(
+  subagent_type: "general-purpose",
+  prompt: [content of .claude/skills/generate_weekly_article.md],
+  run_in_background: false
+)
+```
+
+This reads all files from `resources/$TODAY/` and creates the article.
+
+**AFTER COMPLETION → IMMEDIATELY GO TO STEP 4**
+
+## STEP 4: Guardrail Review
+
+Use the Task tool to run the guardrail review:
+
+```
+Task(
+  subagent_type: "general-purpose",
+  prompt: [content of .claude/skills/article_guardrail_review.md],
+  run_in_background: false
+)
+```
+
+If issues found: Fix them and re-run review. If approved: Continue.
+
+**AFTER APPROVAL → IMMEDIATELY GO TO STEP 5**
+
+## STEP 5: Commit and Push
+
+Execute these git commands in sequence:
+```bash
+git add resources/$TODAY/ articles/
+git commit -m "Add weekly AI digest for $TODAY
+
+🤖 Generated with Claude Code
+Co-Authored-By: Claude <noreply@anthropic.com>"
+git push origin main
+```
+
+**AFTER PUSH COMPLETES → GO TO FINAL REPORT**
+
+## FINAL REPORT
+
+Only after ALL steps complete, output a single summary:
+
+```
+# Weekly Digest Pipeline Complete
+
+**Date:** $TODAY
+
+## Execution Summary
+- Digest Tasks: X/7 succeeded (parallel execution)
+- Article Generated: Yes/No
+- Guardrail Review: Passed/Failed
+- Git Commit: Success/Failed
+
+## Task Results
+| Task | Status | Output File |
+|------|--------|-------------|
+| vibecoding_release_digest | ✓/✗ | release_information.md |
+| ai_trending_repositories_digest | ✓/✗ | trending_repositories.md |
+| ai_trending_papers_digest | ✓/✗ | ai_trending_papers.md |
+| ai_news_digest | ✓/✗ | ai_news_summary.md |
+| ai_events_digest | ✓/✗ | events.md |
+| hacker_news_reddit_digest | ✓/✗ | community_discussions.md |
+| ai_tec_blog_digest | ✓/✗ | tech_blog_articles.md |
+
+## Failed Steps (if any)
+- [List any failures with brief description]
+
+## Output Files
+- resources/$TODAY/[list files]
+- articles/weekly_ai_YYYYMMDD.md
+```
+
+# REMINDER: DO NOT STOP UNTIL YOU REACH THE FINAL REPORT
+
+# Architecture Benefits
+
+This pipeline uses Task agents with the following advantages:
+1. **Parallel Execution**: All 7 digest tasks run simultaneously, reducing total execution time
+2. **Context Isolation**: Each task runs in its own context, preventing context overflow
+3. **Error Resilience**: If one task fails, others continue independently
+4. **Background Processing**: Tasks run in background, allowing efficient resource usage
