@@ -26,6 +26,7 @@ date +%Y%m%d
      - `release_information.md`
      - `trending_repositories.md`
      - `ai_news_summary.md`
+     - `ai_trending_papers.md`
      - `events.md`
      - `community_discussions.md`
      - `tech_blog_articles.md`
@@ -43,6 +44,7 @@ date +%Y%m%d
      - **For Release Information**: Focus on noteworthy features, new capabilities, and significant improvements. Exclude minor bug fixes, typo corrections, and routine maintenance updates
      - **For Trending Repositories**: Include repositories that demonstrate innovation or solve important problems in AI development
      - **For AI News**: Prioritize major announcements, product launches, and strategic developments
+     - **For AI Trending Papers**: Include all papers from the source file with their Japanese summaries and arXiv links
      - **For Events**: Include events that are highly relevant to AI developers and provide learning opportunities
      - **For Overseas Community Trends**: Focus on technical insights, emerging trends, and actionable developer tips from global communities
      - **For Tech Blog Articles**: Highlight practical tutorials, architectural insights, and innovative use cases
@@ -63,10 +65,11 @@ date +%Y%m%d
      1. リリース情報
      2. 注目のAI開発リポジトリ
      3. AI関連ニュース
-     4. テックブログ
-     5. 海外コミュニティ動向
-     6. 今週のAI開発イベント
-     7. まとめ
+     4. 今週のAI論文トレンド
+     5. テックブログ
+     6. 海外コミュニティ動向
+     7. 今週のAI開発イベント
+     8. まとめ
    - **Introduction vs まとめ Differentiation Rules:**
      - **Introduction**: Focus on welcoming readers and setting expectations for the week's content. Mention the main themes or categories that will be covered (e.g., "今週は新しいAIツールのリリースと、開発者向けのイベント情報をお届けします"). Keep it forward-looking and inviting.
      - **まとめ**: Write a very concise summary (280 characters or less in Japanese) focusing on the single most important trend or development from this week. Avoid lengthy explanations and keep it brief and impactful.
@@ -92,6 +95,9 @@ date +%Y%m%d
 
     ## 📰 AI関連ニュース
     [Content from ai_news_summary.md if available - MANDATORY: copy URLs exactly as they appear in the source file]
+
+    ## 📄 今週のAI論文トレンド
+    [Content from ai_trending_papers.md if available - Include paper titles, authors, Japanese summaries, and arXiv URLs exactly as they appear in the source file]
 
     ## 💻 テックブログ
     [Content from tech_blog_articles.md if available - MANDATORY: copy URLs exactly as they appear in the source file]
