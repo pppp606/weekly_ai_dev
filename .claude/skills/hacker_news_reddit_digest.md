@@ -41,14 +41,10 @@ date +%Y-%m-%d
 **Execution Steps:**
 
 1. **For Hacker News**: Use WebFetch to check for top posts from the past week
-2. **For Reddit**: Use the CLI scraping script to fetch top posts as JSON:
-   ```bash
-   node scripts/scrape.js --site reddit --subreddit LocalLLaMA --period week --limit 10
-   node scripts/scrape.js --site reddit --subreddit MachineLearning --period week --limit 10
-   node scripts/scrape.js --site reddit --subreddit artificial --period week --limit 10
-   ```
-   - Each command returns a JSON array of `{ title, url, score, comments }`
-   - Parse the JSON output to extract post titles, URLs, and engagement data
+2. **For Reddit**: Use Playwright CLI to navigate Reddit pages and extract data, as Reddit blocks WebFetch requests due to bot detection
+   - Write and run a Node.js script using `require('playwright')` via Bash to scrape each subreddit
+   - Extract post titles, URLs, scores, and comment counts
+   - Focus on top posts from the past week
 3. Filter for content relevant to AI development (not general AI news)
 4. Extract key insights and practical takeaways for developers
 5. **CRITICAL**: Always include the direct link to each discussion/post in the output
@@ -56,9 +52,9 @@ date +%Y-%m-%d
 7. Save the summary to `resources/[TODAY_DATE]/community_discussions.md`
 
 **Reddit Access Note:**
-- Reddit blocks WebFetch requests, so always use `node scripts/scrape.js --site reddit` for Reddit sources
-- The script handles headless Chromium, timeouts, and retry automatically
-- Output is JSON to stdout; errors are JSON to stderr
+- Reddit blocks WebFetch requests, so always use Playwright CLI for Reddit sources
+- Write a Node.js script using `require('playwright')` and run it via Bash
+- Implement appropriate delays between requests to avoid rate limiting
 
 **Output Format:**
 ```markdown

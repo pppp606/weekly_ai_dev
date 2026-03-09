@@ -39,12 +39,10 @@ date +%Y-%m-%d
 **Execution Steps:**
 
 1. **For Zenn.dev and Qiita.com**: Try WebFetch first, if content extraction fails, use WebSearch with site-specific queries
-2. **For note.com**: Use the CLI scraping script to fetch search results as JSON:
-   ```bash
-   node scripts/scrape.js --site notecom --query "Claude GPT AI開発 Cursor" --sort like --limit 10
-   ```
-   - Returns a JSON array of `{ title, url, author, likes }`
-   - Parse the JSON output to extract article metadata
+2. **For note.com**: Use Playwright CLI for dynamic content loading and bot evasion
+   - Write and run a Node.js script using `require('playwright')` via Bash to scrape note.com search results
+   - Extract article titles, URLs, authors, and engagement data
+   - Focus on recent articles from the past 7 days
 3. Filter articles by publication date (last 7 days)
 4. Identify articles matching the target criteria
 5. Select 3-5 most valuable articles for developers across all platforms
@@ -54,8 +52,8 @@ date +%Y-%m-%d
 
 **Platform Access Notes:**
 - If WebFetch returns only HTML/CSS without article content, use WebSearch as fallback
-- For note.com, always use `node scripts/scrape.js --site notecom` as note.com blocks WebFetch
-- The script handles headless Chromium, timeouts, and retry automatically; output is JSON to stdout
+- For note.com, always use Playwright CLI instead of WebFetch, as note.com consistently blocks WebFetch requests
+- Write a Node.js script using `require('playwright')` and run it via Bash for note.com scraping
 - Ensure balanced representation across all three platforms when possible
 
 **Output Format:**

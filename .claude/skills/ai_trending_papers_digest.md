@@ -23,16 +23,20 @@ Use the date for the output directory path and the week number for the Hugging F
 
 1. **Fetch Trending Papers from Hugging Face**
    - Calculate the week number using the date command: `date +%Y-W%V` (e.g., 2025-W46)
-   - Run the CLI scraping script to fetch trending papers with arXiv abstracts:
-     ```bash
-     node scripts/scrape.js --site huggingface-papers --week 2025-W46 --limit 3
-     ```
-   - The script returns a JSON array of `{ title, url, arxiv_url, arxiv_id, abstract, authors }`
-   - Parse the JSON output to get paper details
+   - Open https://huggingface.co/papers/week/{WEEK_NUMBER} using Playwright CLI
+     - Write and run a Node.js script using `require('playwright')` via Bash
+     - Example: https://huggingface.co/papers/week/2025-W46
+   - Navigate to the page and wait for content to load
+   - Extract the top 3 trending paper entries with the following information:
+     - Paper title
+     - Authors list
+     - arXiv URL (if available)
+   - Skip any papers without arXiv links
 
-2. **Summarize Abstracts**
-   - For each paper in the JSON output:
-     - Use the `abstract` field (already extracted by the script)
+2. **Extract and Summarize Abstracts**
+   - For each paper with an arXiv URL:
+     - Visit the arXiv page using Playwright CLI or WebFetch
+     - Extract the abstract text
      - Generate a detailed Japanese summary of the abstract (5-8 lines recommended)
      - Include the following in the summary:
        - Background and motivation of the research
@@ -76,8 +80,8 @@ Use the date for the output directory path and the week number for the Hugging F
 - Automatically proceed through all steps without waiting for confirmation
 
 **Error Handling:**
-- The CLI script handles retries and timeouts automatically
-- If arXiv abstract extraction fails for a specific paper, the script returns an empty abstract
+- If Hugging Face page fails to load, retry once after 5 seconds
+- If arXiv page fails to load for a specific paper, skip that paper and continue
 - If fewer than 3 papers are found, process all available papers
 - Log any errors but continue execution
 
