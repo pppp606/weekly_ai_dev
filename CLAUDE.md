@@ -114,23 +114,24 @@ Generated articles are automatically validated during the pipeline execution, en
 Some websites (particularly Reddit, note.com, and potentially others) may block WebFetch requests due to bot detection. When this occurs:
 
 1. **Identification**: If WebFetch returns errors like "403 Forbidden", "blocked", or similar bot-detection messages, or returns CSS/JavaScript code instead of content
-2. **Fallback Solution**: Use the available MCP Playwright tool instead of WebFetch
-3. **Implementation**: Replace WebFetch calls with appropriate Playwright navigation and scraping
+2. **Fallback Solution**: Use Playwright CLI instead of WebFetch
+3. **Implementation**: Write a Node.js script using `require('playwright')` and run it via Bash to scrape the target page
 4. **Affected Skills**: This primarily affects:
    - `hacker_news_reddit_digest` (Reddit access)
    - `ai_tec_blog_digest` (note.com blocking, potential blog platform blocking)
+   - `ai_trending_papers_digest` (Hugging Face Papers)
    - `ai_events_digest` (Connpass may have restrictions)
 
-### Playwright Usage Guidelines
+### Playwright CLI Usage Guidelines
 When WebFetch is blocked:
-- Use Playwright for dynamic content loading and bot evasion
+- Write and run a Node.js script using `require('playwright')` via Bash
+- Use headless Chromium for dynamic content loading and bot evasion
 - Implement appropriate delays between requests to avoid rate limiting
 - Extract only the necessary data to minimize resource usage
 - Handle JavaScript-rendered content that WebFetch cannot access
 
 ### Specific Platform Rules
-- **note.com**: ALWAYS use MCP Playwright instead of WebFetch, as note.com consistently blocks WebFetch requests and returns CSS/JavaScript code instead of article content
-- **Reddit**: Use Playwright when WebFetch returns 403 or blocking errors
-- **Zenn/Qiita**: WebFetch generally works, but fallback to Playwright if needed
-
-**Example Scenario**: For note.com article collection, use Playwright to navigate search pages and extract article titles, authors, publication dates, and summaries. For Reddit, switch to Playwright when WebFetch blocks requests to extract trending discussions from r/LocalLLaMA, r/MachineLearning, etc.
+- **note.com**: ALWAYS use Playwright CLI instead of WebFetch, as note.com consistently blocks WebFetch requests and returns CSS/JavaScript code instead of article content
+- **Reddit**: Use Playwright CLI when WebFetch returns 403 or blocking errors
+- **Hugging Face Papers**: Use Playwright CLI for trending weekly papers page
+- **Zenn/Qiita**: WebFetch generally works, but fallback to Playwright CLI if needed

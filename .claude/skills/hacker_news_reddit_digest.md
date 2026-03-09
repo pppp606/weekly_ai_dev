@@ -41,9 +41,9 @@ date +%Y-%m-%d
 **Execution Steps:**
 
 1. **For Hacker News**: Use WebFetch to check for top posts from the past week
-2. **For Reddit**: Use Playwright (mcp__playwright tools) to navigate Reddit pages, as Reddit blocks WebFetch requests due to bot detection
-   - Navigate to each Reddit URL using Playwright
-   - Extract post titles, content, and discussion summaries
+2. **For Reddit**: Use Playwright CLI to navigate Reddit pages and extract data, as Reddit blocks WebFetch requests due to bot detection
+   - Write and run a Node.js script using `require('playwright')` via Bash to scrape each subreddit
+   - Extract post titles, URLs, scores, and comment counts
    - Focus on top posts from the past week
 3. Filter for content relevant to AI development (not general AI news)
 4. Extract key insights and practical takeaways for developers
@@ -52,9 +52,9 @@ date +%Y-%m-%d
 7. Save the summary to `resources/[TODAY_DATE]/community_discussions.md`
 
 **Reddit Access Note:**
-- Reddit blocks WebFetch requests, so always use Playwright for Reddit sources
+- Reddit blocks WebFetch requests, so always use Playwright CLI for Reddit sources
+- Write a Node.js script using `require('playwright')` and run it via Bash
 - Implement appropriate delays between requests to avoid rate limiting
-- Extract only the necessary data to minimize resource usage
 
 **Output Format:**
 ```markdown

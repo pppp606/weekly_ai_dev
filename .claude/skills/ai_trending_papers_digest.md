@@ -23,7 +23,8 @@ Use the date for the output directory path and the week number for the Hugging F
 
 1. **Fetch Trending Papers from Hugging Face**
    - Calculate the week number using the date command: `date +%Y-W%V` (e.g., 2025-W46)
-   - Open https://huggingface.co/papers/week/{WEEK_NUMBER} using MCP Playwright tool (mcp__playwright__)
+   - Open https://huggingface.co/papers/week/{WEEK_NUMBER} using Playwright CLI
+     - Write and run a Node.js script using `require('playwright')` via Bash
      - Example: https://huggingface.co/papers/week/2025-W46
    - Navigate to the page and wait for content to load
    - Extract the top 3 trending paper entries with the following information:
@@ -34,8 +35,8 @@ Use the date for the output directory path and the week number for the Hugging F
 
 2. **Extract and Summarize Abstracts**
    - For each paper with an arXiv URL:
-     - Visit the arXiv page
-     - Extract the abstract text (typically in blockquote.abstract or similar element)
+     - Visit the arXiv page using Playwright CLI or WebFetch
+     - Extract the abstract text
      - Generate a detailed Japanese summary of the abstract (5-8 lines recommended)
      - Include the following in the summary:
        - Background and motivation of the research
