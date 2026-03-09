@@ -2,6 +2,7 @@ node_modules
 .DS_Store
 .keep
 .claude/settings.local.json
+.playwright-mcp/
 
 # Promptfoo test results and artifacts
 tests/promptfoo/results/

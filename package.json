@@ -21,6 +21,7 @@
   "homepage": "https://github.com/pppp606/weekly_ai_dev#readme",
   "description": "",
   "dependencies": {
+    "playwright": "^1.52.0",
     "zenn-cli": "^0.2.1"
   },
   "devDependencies": {

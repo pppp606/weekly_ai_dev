@@ -47,6 +47,8 @@ Skills are executed as isolated Task agents with their own context, enabling par
 │       ├── ai_tec_blog_digest.md
 │       ├── generate_weekly_article.md
 │       └── article_guardrail_review.md
+├── scripts/
+│   └── scrape.js              # Shared CLI scraping script (Reddit, note.com, HF Papers)
 ├── resources/
 │   └── YYYY-MM-DD/        # Daily collected information
 │       ├── release_information.md
@@ -111,26 +113,29 @@ Generated articles are automatically validated during the pipeline execution, en
 ## Technical Constraints and Workarounds
 
 ### WebFetch Bot Blocking
-Some websites (particularly Reddit, note.com, and potentially others) may block WebFetch requests due to bot detection. When this occurs:
+Some websites (particularly Reddit, note.com, and Hugging Face Papers) block WebFetch requests due to bot detection. These sites are handled by a shared CLI scraping script (`scripts/scrape.js`) that uses headless Chromium via Playwright.
 
-1. **Identification**: If WebFetch returns errors like "403 Forbidden", "blocked", or similar bot-detection messages, or returns CSS/JavaScript code instead of content
-2. **Fallback Solution**: Use the available MCP Playwright tool instead of WebFetch
-3. **Implementation**: Replace WebFetch calls with appropriate Playwright navigation and scraping
-4. **Affected Skills**: This primarily affects:
-   - `hacker_news_reddit_digest` (Reddit access)
-   - `ai_tec_blog_digest` (note.com blocking, potential blog platform blocking)
-   - `ai_events_digest` (Connpass may have restrictions)
+### CLI Scraping Script (`scripts/scrape.js`)
+A single Node.js script that replaces all MCP Playwright usage. It runs as a single Bash command and returns JSON to stdout.
 
-### Playwright Usage Guidelines
-When WebFetch is blocked:
-- Use Playwright for dynamic content loading and bot evasion
-- Implement appropriate delays between requests to avoid rate limiting
-- Extract only the necessary data to minimize resource usage
-- Handle JavaScript-rendered content that WebFetch cannot access
+```bash
+# Reddit — fetch top posts from a subreddit
+node scripts/scrape.js --site reddit --subreddit LocalLLaMA --period week --limit 10
+# Returns: [{ title, url, score, comments }, ...]
+
+# note.com — search articles
+node scripts/scrape.js --site notecom --query "Claude GPT AI開発 Cursor" --sort like --limit 10
+# Returns: [{ title, url, author, likes }, ...]
+
+# Hugging Face Papers — trending papers with arXiv abstracts
+node scripts/scrape.js --site huggingface-papers --week 2026-W10 --limit 3
+# Returns: [{ title, url, arxiv_url, arxiv_id, abstract, authors }, ...]
+```
+
+Features: headless Chromium, 30-second timeout, 1 automatic retry, SIGINT/SIGTERM handling, errors as JSON to stderr.
 
 ### Specific Platform Rules
-- **note.com**: ALWAYS use MCP Playwright instead of WebFetch, as note.com consistently blocks WebFetch requests and returns CSS/JavaScript code instead of article content
-- **Reddit**: Use Playwright when WebFetch returns 403 or blocking errors
-- **Zenn/Qiita**: WebFetch generally works, but fallback to Playwright if needed
-
-**Example Scenario**: For note.com article collection, use Playwright to navigate search pages and extract article titles, authors, publication dates, and summaries. For Reddit, switch to Playwright when WebFetch blocks requests to extract trending discussions from r/LocalLLaMA, r/MachineLearning, etc.
+- **note.com**: ALWAYS use `node scripts/scrape.js --site notecom` — note.com blocks WebFetch
+- **Reddit**: ALWAYS use `node scripts/scrape.js --site reddit` — Reddit blocks WebFetch
+- **Hugging Face Papers**: Use `node scripts/scrape.js --site huggingface-papers` for trending weekly papers
+- **Zenn/Qiita**: WebFetch generally works; fallback to WebSearch if needed
