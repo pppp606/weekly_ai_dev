@@ -55,6 +55,7 @@ date +%Y-%m-%d
 - Reddit blocks WebFetch requests, so always use Playwright CLI for Reddit sources
 - Write a Node.js script using `require('playwright')` and run it via Bash
 - Implement appropriate delays between requests to avoid rate limiting
+- **IMPORTANT: URL Normalization**: When scraping via `old.reddit.com`, always convert URLs to `www.reddit.com` in the output. The article should link to the main Reddit domain, not the old UI.
 
 **Output Format:**
 ```markdown

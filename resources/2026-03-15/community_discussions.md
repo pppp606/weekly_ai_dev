@@ -14,7 +14,7 @@
 - **技術的内容**: AIが生成したコードが本番環境で障害を引き起こした具体例として、テスト不足や意図しない副作用が指摘されている。481件のコメントでは、AI生成コードのレビュー体制やテスト自動化の必要性が議論された
 - **開発者への示唆**: AIコーディングツールの導入に際して、コードレビュープロセスの見直しが不可欠。特に本番環境への反映前に、AI生成コードに対する追加のテストカバレッジや承認フローを設計すべき
 
-### [Manus元バックエンドリード: エージェント開発で2年間の末、function callingを完全に止めた理由](https://old.reddit.com/r/LocalLLaMA/comments/1rrisqn/i_was_backend_lead_at_manus_after_building_agents/)
+### [Manus元バックエンドリード: エージェント開発で2年間の末、function callingを完全に止めた理由](https://www.reddit.com/r/LocalLLaMA/comments/1rrisqn/i_was_backend_lead_at_manus_after_building_agents/)
 - **出典**: Reddit (r/LocalLLaMA)
 - **注目ポイント**: AIエージェント開発プラットフォームManusの元バックエンドリードが、2年間のエージェント開発経験を経てfunction callingを完全に放棄し、代替手法に移行したという実践的知見を共有。380件以上のコメントで活発な議論
 - **技術的内容**: function callingの問題点として、レイテンシの増加、エラーハンドリングの複雑さ、モデル間の非互換性などが指摘されている。代替として、構造化プロンプトとテキストベースのコマンドパターンを組み合わせたアプローチが提案されている
@@ -32,7 +32,7 @@
 - **技術的内容**: Go言語で実装された軽量ツールで、LLM呼び出し、ツール実行、エージェントループなどの基本機能を単一バイナリで提供。依存関係ゼロでインストールでき、YAML設定ファイルでカスタマイズ可能
 - **開発者への示唆**: AIエージェント開発において、必ずしも大規模フレームワークが必要ではない。プロジェクトの規模に応じてシンプルなツールを選択する判断が重要。特にプロトタイピングや小規模プロジェクトでは軽量ツールが有効
 
-### [Qwen 3.5ファミリーのベンチマーク比較](https://old.reddit.com/r/LocalLLaMA/comments/1ro7xve/qwen35_family_comparison_on_shared_benchmarks/)
+### [Qwen 3.5ファミリーのベンチマーク比較](https://www.reddit.com/r/LocalLLaMA/comments/1ro7xve/qwen35_family_comparison_on_shared_benchmarks/)
 - **出典**: Reddit (r/LocalLLaMA)
 - **注目ポイント**: Alibaba CloudのQwen 3.5モデルファミリーが公開され、各サイズのベンチマーク比較が大きな注目を集めた。MoE（Mixture of Experts）アーキテクチャの35B-A3Bモデルが特に話題に
 - **技術的内容**: Qwen 3.5シリーズは0.8Bから大規模モデルまで幅広いサイズ展開。特にQwen3.5-35B-A3BはMoEアーキテクチャにより、推論時は3Bパラメータのみアクティブで、35Bモデル相当の性能を実現。0.8Bモデルはスマートウォッチ上での動作も実証された
@@ -50,13 +50,13 @@
 - **技術的内容**: AIプラットフォーム特有の脆弱性として、プロンプトインジェクション、不適切なアクセス制御、データ漏洩のリスクが具体的に示された。LLMを組み込んだシステムにおけるセキュリティ設計の課題が浮き彫りに
 - **開発者への示唆**: LLMを組み込んだアプリケーション開発において、従来のWebセキュリティに加え、プロンプトインジェクション対策やLLM出力のサニタイゼーションなど、AI固有のセキュリティ対策が必須
 
-### [OmniCoder-9B: 42.5万件のエージェント軌跡でファインチューニングされた9Bコーディングエージェント](https://old.reddit.com/r/LocalLLaMA/comments/1rs6td4/omnicoder9b_9b_coding_agent_finetuned_on_425k/)
+### [OmniCoder-9B: 42.5万件のエージェント軌跡でファインチューニングされた9Bコーディングエージェント](https://www.reddit.com/r/LocalLLaMA/comments/1rs6td4/omnicoder9b_9b_coding_agent_finetuned_on_425k/)
 - **出典**: Reddit (r/LocalLLaMA)
 - **注目ポイント**: 9Bパラメータのコーディングエージェント専用モデルが公開。42.5万件のエージェント実行軌跡（agentic trajectories）でファインチューニングされており、小型モデルでもエージェント動作が可能であることを実証
 - **技術的内容**: エージェントとしてのタスク実行に特化したファインチューニングデータセットを使用。コード生成だけでなく、ツール呼び出し、エラー修正、反復的なタスク完了など、エージェント的振る舞いを9Bモデルで実現
 - **開発者への示唆**: ローカル環境でのコーディングエージェント運用が現実的に。クラウドAPIに依存しないプライベートなコーディングアシスタントの構築が可能になりつつある
 
-### [M5 Max到着 - ベンチマーク速報](https://old.reddit.com/r/LocalLLaMA/comments/1rqnpvj/m5_max_just_arrived_benchmarks_incoming/)
+### [M5 Max到着 - ベンチマーク速報](https://www.reddit.com/r/LocalLLaMA/comments/1rqnpvj/m5_max_just_arrived_benchmarks_incoming/)
 - **出典**: Reddit (r/LocalLLaMA)
 - **注目ポイント**: Appleの新チップM5 Maxの到着報告とベンチマーク速報が2100以上のスコアを獲得。ローカルLLM推論におけるApple Siliconの性能向上への期待が高い
 - **技術的内容**: M5 MaxでのLLM推論性能のベンチマーク結果が共有され、344件のコメントで詳細な議論が展開。メモリ帯域やユニファイドメモリの容量がローカルLLM実行に直結する重要な要素として注目されている
@@ -86,13 +86,13 @@
 - **技術的内容**: Moltbookは自律的なAIエージェントがタスクの委託や情報交換を行うプラットフォーム。Metaはこれを「AIエージェントが人々やビジネスのために働く新しい方法」として活用する意向
 - **開発者への示唆**: AIエージェント間の通信プロトコルやマーケットプレイスが今後の重要なインフラになる可能性。エージェント開発において、他のエージェントとの相互運用性を考慮した設計が求められる
 
-### [MetaのCOCONUTで制御実験: 「潜在推論」の実態は良いトレーニングにすぎなかった](https://old.reddit.com/r/MachineLearning/comments/1rt4lyd/d_ran_controlled_experiments_on_metas_coconut_and/)
+### [MetaのCOCONUTで制御実験: 「潜在推論」の実態は良いトレーニングにすぎなかった](https://www.reddit.com/r/MachineLearning/comments/1rt4lyd/d_ran_controlled_experiments_on_metas_coconut_and/)
 - **出典**: Reddit (r/MachineLearning)
 - **注目ポイント**: MetaのCOCONUT（Continuous Chain-of-Thought）論文に対して、独立した制御実験で「潜在推論」の効果を検証した結果、リサイクルされた隠れ状態は実際には汎化性能を低下させるという反論が提示された
 - **技術的内容**: COCONUT論文はLLMの隠れ状態を再利用することで、トークンを生成せずに推論を行う「潜在推論」を提案していた。しかし制御実験では、性能向上はアーキテクチャではなく学習データやハイパーパラメータの最適化によるものであることが示唆された
 - **開発者への示唆**: 新しいアーキテクチャの論文を評価する際は、独立した再現実験の結果も確認すべき。「画期的」と報じられた手法が実際にはベースラインの改善に帰着するケースは少なくない
 
-### [Nvidia、オープンウェイトAIモデル構築に260億ドルを投資](https://old.reddit.com/r/LocalLLaMA/comments/1rr4by8/nvidia_will_spend_26_billion_to_build_openweight/)
+### [Nvidia、オープンウェイトAIモデル構築に260億ドルを投資](https://www.reddit.com/r/LocalLLaMA/comments/1rr4by8/nvidia_will_spend_26_billion_to_build_openweight/)
 - **出典**: Reddit (r/LocalLLaMA)
 - **注目ポイント**: NvidiaがオープンウェイトAIモデルの構築に260億ドルを投資する計画が明らかに。オープンソースLLMエコシステムへの大規模投資として注目を集めた
 - **技術的内容**: NVIDIAはGPU販売だけでなく、自社でオープンウェイトのモデルを開発・公開する戦略を本格化。Nemotron 3 Superの公開とも連動し、開発者コミュニティとの関係強化を図る
@@ -104,7 +104,7 @@
 - **技術的内容**: Metal APIを活用したApple Silicon最適化により、llama.cppなどの既存ツールよりも高速な推論を実現。M3/M4/M5シリーズでの大幅な性能向上が報告されている
 - **開発者への示唆**: Apple Siliconを搭載したMacでローカルLLMを利用する開発者にとって、推論速度の改善は日常的な開発体験を大きく向上させる可能性がある
 
-### [認知科学に基づくAIメモリシステムの構築](https://old.reddit.com/r/artificial/comments/1rrss36/built_an_ai_memory_system_based_on_cognitive/)
+### [認知科学に基づくAIメモリシステムの構築](https://www.reddit.com/r/artificial/comments/1rrss36/built_an_ai_memory_system_based_on_cognitive/)
 - **出典**: Reddit (r/artificial)
 - **注目ポイント**: ベクトルデータベースではなく、人間の認知科学に基づいたAIメモリシステムの構築報告。78件のコメントで技術的な議論が活発に
 - **技術的内容**: 忘却曲線、連想記憶、エピソード記憶などの認知科学の概念をAIのメモリ管理に応用。単純なベクトル類似度検索ではなく、文脈や時間的関連性を考慮した記憶の取得・更新メカニズムを実装
